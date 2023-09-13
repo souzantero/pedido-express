@@ -1,12 +1,8 @@
-export interface User {
+export interface ProductCategory {
   id: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
 
   name: string;
-  email: string;
-  password: string;
-
-  verified: boolean;
 }
