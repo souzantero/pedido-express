@@ -1,3 +1,5 @@
+import { Product } from "./product";
+
 export interface ProductCategory {
   id: string;
   createdAt: Date;
@@ -5,4 +7,6 @@ export interface ProductCategory {
   deletedAt?: Date;
 
   name: string;
+
+  products?: Product[];
 }
