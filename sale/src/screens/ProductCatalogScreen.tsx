@@ -1,9 +1,9 @@
 import { Text } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { Product } from "@self/domain";
-import { useProductCategories } from "../hooks";
-import { ProductList } from "../components/ProductList";
+import { useProductCategories, useProducts } from "../hooks";
+import { ProductList } from "../components";
+import { useMemo } from "react";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -23,7 +23,7 @@ export const ProductCatalogScreen = () => {
         <Tab.Screen
           name={productCategory.name}
           key={productCategory.id}
-          initialParams={{ products: productCategory.products }}
+          initialParams={{ productCategoryId: productCategory.id }}
           component={ProductListScreen}
         />
       ))}
@@ -32,15 +32,17 @@ export const ProductCatalogScreen = () => {
 };
 
 type ProductListScreenProps = {
-  route: RouteProp<
-    {
-      products?: Product[];
-    },
-    any
-  >;
+  route: RouteProp<any, any>;
 };
 
 const ProductListScreen = ({ route }: ProductListScreenProps) => {
-  const products = route.params?.products ?? [];
-  return <ProductList products={products} />;
+  const productCategoryId = route.params?.productCategoryId as string;
+  const { products } = useProducts();
+  const categoryProducts = useMemo(
+    () =>
+      products?.filter((product) => product.categoryId === productCategoryId),
+    [products, productCategoryId]
+  );
+
+  return <ProductList products={categoryProducts ?? []} />;
 };

@@ -15,7 +15,7 @@ export const ProductList = ({ products }: ProductListProps) => {
           return (
             <View
               style={{
-                marginBottom: index === 0 ? 0 : 16,
+                marginBottom: index === products.length - 1 ? 16 : 0,
                 marginTop: 16,
                 marginLeft: 16,
                 marginRight: 16,
