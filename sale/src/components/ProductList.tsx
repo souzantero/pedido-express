@@ -1,5 +1,5 @@
 import { FlatList, View } from "react-native";
-import { Button, Card, Text } from "react-native-paper";
+import { Card, Text } from "react-native-paper";
 import { Product } from "@self/domain";
 import { numberToMoney } from "../utilities";
 
@@ -33,7 +33,7 @@ export const ProductList = ({ products }: ProductListProps) => {
 
 export const ProductItem = ({ product }: { product: Product }) => {
   return (
-    <Card style={{ backgroundColor: "white", borderRadius: 0 }}>
+    <Card style={{ borderRadius: 0 }}>
       <Card.Cover
         style={{ borderRadius: 0 }}
         source={{ uri: product.displayImageSource }}
@@ -46,9 +46,6 @@ export const ProductItem = ({ product }: { product: Product }) => {
           </Text>
         </View>
       </Card.Content>
-      <Card.Actions>
-        <Button>Adicionar</Button>
-      </Card.Actions>
     </Card>
   );
 };
