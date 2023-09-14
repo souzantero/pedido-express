@@ -1,10 +1,10 @@
+import { MD3LightTheme, PaperProvider } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Repository } from "@self/domain";
 import { InMemoryDatabase } from "./src/database";
 import { RepositoryContext } from "./src/contexts";
 import { ProductCatalogScreen } from "./src/screens";
-import { MD3LightTheme, PaperProvider } from "react-native-paper";
 
 const repository: Repository = new InMemoryDatabase();
 const Stack = createStackNavigator();

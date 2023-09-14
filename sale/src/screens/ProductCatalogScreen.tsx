@@ -1,9 +1,11 @@
 import { Text } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useProductCategories, useProducts } from "../hooks";
+import {
+  useCategoryProducts,
+  useProductCategories,
+} from "../hooks";
 import { ProductList } from "../components";
-import { useMemo } from "react";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -37,12 +39,6 @@ type ProductListScreenProps = {
 
 const ProductListScreen = ({ route }: ProductListScreenProps) => {
   const productCategoryId = route.params?.productCategoryId as string;
-  const { products } = useProducts();
-  const categoryProducts = useMemo(
-    () =>
-      products?.filter((product) => product.categoryId === productCategoryId),
-    [products, productCategoryId]
-  );
-
+  const { categoryProducts } = useCategoryProducts(productCategoryId);
   return <ProductList products={categoryProducts ?? []} />;
 };
