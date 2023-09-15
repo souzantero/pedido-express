@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Product } from "@self/domain"
-import { useRepository } from "../contexts"
+import { useRepository } from "../context"
 
 export const useProducts = () => {
   const repository = useRepository()

@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Repository } from "@self/domain";
 import { InMemoryDatabase } from "./src/database";
-import { RepositoryContext } from "./src/contexts";
+import { RepositoryContext } from "./src/context";
 import { ProductCatalogScreen } from "./src/screens";
 
 const repository: Repository = new InMemoryDatabase();
@@ -18,7 +18,7 @@ export default function App() {
             <Stack.Screen
               name="ProductCatalog"
               options={{
-                title: "Produtos",
+                title: "Bob's",
               }}
               component={ProductCatalogScreen}
             />
