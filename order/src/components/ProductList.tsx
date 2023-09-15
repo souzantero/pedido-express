@@ -5,24 +5,32 @@ import { numberToMoney } from "../utilities";
 
 export type ProductListProps = {
   products: Product[];
+  onProductPress?: (product: Product) => void;
 };
 
-export const ProductList = ({ products }: ProductListProps) => {
+export const ProductList = ({ products, onProductPress }: ProductListProps) => {
   return (
     <View style={{ flex: 1 }}>
       <FlatList
         data={products}
         renderItem={({ item, index }) => {
+          const margin = 12;
+          const marginBottom = index === products.length - 1 ? margin : 0;
           return (
             <View
               style={{
-                marginBottom: index === products.length - 1 ? 12 : 0,
-                marginTop: 12,
-                marginLeft: 12,
-                marginRight: 12,
+                marginBottom,
+                marginTop: margin,
+                marginLeft: margin,
+                marginRight: margin,
               }}
             >
-              <ProductItem product={item} />
+              <ProductItem
+                product={item}
+                onPress={() => {
+                  if (onProductPress) onProductPress(item);
+                }}
+              />
             </View>
           );
         }}
@@ -31,9 +39,14 @@ export const ProductList = ({ products }: ProductListProps) => {
   );
 };
 
-export const ProductItem = ({ product }: { product: Product }) => {
+export type ProductItemProps = {
+  product: Product;
+  onPress?: () => void;
+};
+
+export const ProductItem = ({ product, onPress }: ProductItemProps) => {
   return (
-    <Card style={{ borderRadius: 0 }}>
+    <Card style={{ borderRadius: 0 }} onPress={onPress}>
       <Card.Cover
         style={{ borderRadius: 0 }}
         source={{ uri: product.displayImageSource }}

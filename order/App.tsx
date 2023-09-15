@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Repository } from "@self/domain";
 import { InMemoryDatabase } from "./src/database";
 import { RepositoryContext } from "./src/context";
-import { ProductCatalogScreen } from "./src/screens";
+import { ProductCatalogScreen, ProductDetailScreen } from "./src/screens";
 
 const repository: Repository = new InMemoryDatabase();
 const Stack = createStackNavigator();
@@ -14,13 +14,20 @@ export default function App() {
     <PaperProvider theme={MD3LightTheme}>
       <RepositoryContext.Provider value={repository}>
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator initialRouteName="ProductCatalog">
             <Stack.Screen
               name="ProductCatalog"
               options={{
                 title: "Bob's",
               }}
               component={ProductCatalogScreen}
+            />
+            <Stack.Screen
+              name="ProductDetail"
+              options={{
+                title: "Detalhes do Produto",
+              }}
+              component={ProductDetailScreen}
             />
           </Stack.Navigator>
         </NavigationContainer>
