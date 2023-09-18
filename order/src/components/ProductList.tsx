@@ -46,9 +46,9 @@ export type ProductItemProps = {
 
 export const ProductItem = ({ product, onPress }: ProductItemProps) => {
   return (
-    <Card style={{ borderRadius: 0 }} onPress={onPress}>
+    <Card onPress={onPress}>
       <Card.Cover
-        style={{ borderRadius: 0 }}
+        style={{ borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}
         source={{ uri: product.displayImageSource }}
       />
       <Card.Title title={product.name} subtitle={product.description} />
