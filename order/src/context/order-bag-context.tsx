@@ -8,7 +8,7 @@ export type OrderProductBag = Pick<
 
 export type OrderBag = {
   orderProducts: OrderProductBag[];
-  addProduct: (product: Product, quantity: number, observation: string) => void;
+  addProduct: (product: Product, quantity: number, observation?: string) => void;
   removeProduct: (product: Product) => void;
 };
 

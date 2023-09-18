@@ -5,13 +5,13 @@ import { Repository } from "@self/domain";
 import { InMemoryDatabase } from "./src/database";
 import { OrderBagProvider, RepositoryContext } from "./src/context";
 import { ProductCatalogScreen, ProductDetailScreen } from "./src/screens";
-import { useOrderBag } from "./src/hooks";
+import { useNewOrderBag } from "./src/hooks";
 
 const repository: Repository = new InMemoryDatabase();
 const Stack = createStackNavigator();
 
 export default function App() {
-  const orderBag = useOrderBag();
+  const orderBag = useNewOrderBag();
 
   return (
     <PaperProvider theme={MD3LightTheme}>

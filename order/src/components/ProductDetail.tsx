@@ -12,12 +12,22 @@ import {
 } from "react-native-paper";
 import { Product } from "@self/domain";
 import { numberToMoney } from "../utilities";
+import { useAddProductToOrderBag } from "../hooks/useAddProductToOrderBag";
 
 export type ProductDetailProps = {
   product: Product;
 };
 export const ProductDetail = ({ product }: ProductDetailProps) => {
   const theme = useTheme();
+  const {
+    description,
+    setDescription,
+    quantity,
+    increaseQuantity,
+    decreaseQuantity,
+    addProductToOrderBag,
+  } = useAddProductToOrderBag(product);
+
   return (
     <ScrollView
       style={{
@@ -71,6 +81,8 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
           mode="outlined"
           maxLength={140}
           placeholder="Ex. Tirar a cebola, maionese à parte, etc."
+          value={description}
+          onChangeText={setDescription}
         />
       </View>
       <Divider />
@@ -83,15 +95,15 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
           margin: 16,
         }}
       >
-        <IconButton icon="minus" />
-        <Text style={{ marginHorizontal: 16 }}>1</Text>
-        <IconButton icon="plus" />
+        <IconButton icon="minus" onPress={decreaseQuantity} />
+        <Text style={{ marginHorizontal: 16 }}>{quantity}</Text>
+        <IconButton icon="plus" onPress={increaseQuantity} />
         <Button
           style={{
             flex: 1,
           }}
           mode="contained"
-          onPress={() => console.log("Order Pressed")}
+          onPress={() => addProductToOrderBag()}
         >
           Adicionar
         </Button>
