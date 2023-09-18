@@ -3,7 +3,7 @@ import { RouteProp } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Product } from "@self/domain";
 import { useCategoryProducts, useProductCategories } from "../hooks";
-import { ProductList } from "../components";
+import { OrderBagBanner, ProductList } from "../components";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -45,9 +45,11 @@ const ProductListScreen = ({ route, navigation }: ProductListScreenProps) => {
   };
 
   return (
-    <ProductList
-      products={categoryProducts ?? []}
-      onProductPress={onProductPress}
-    />
+    <OrderBagBanner>
+      <ProductList
+        products={categoryProducts ?? []}
+        onProductPress={onProductPress}
+      />
+    </OrderBagBanner>
   );
 };

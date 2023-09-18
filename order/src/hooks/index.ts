@@ -1,4 +1,5 @@
 export * from './useCategoryProducts'
+export * from './useOrderBag'
 export * from './useProductById'
 export * from './useProducts'
 export * from './useProductCategories'
