@@ -14,20 +14,22 @@ export const ProductCatalogScreen = () => {
   if (isLoadingProductCategories) return <Text>Loading...</Text>;
   if (!productCategories) return <Text>Product categories not found</Text>;
   return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarScrollEnabled: true,
-      }}
-    >
-      {productCategories?.map((productCategory) => (
-        <Tab.Screen
-          name={productCategory.name}
-          key={productCategory.id}
-          initialParams={{ productCategoryId: productCategory.id }}
-          component={ProductListScreen}
-        />
-      ))}
-    </Tab.Navigator>
+    <OrderBagBanner>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarScrollEnabled: true,
+        }}
+      >
+        {productCategories?.map((productCategory) => (
+          <Tab.Screen
+            name={productCategory.name}
+            key={productCategory.id}
+            initialParams={{ productCategoryId: productCategory.id }}
+            component={ProductListScreen}
+          />
+        ))}
+      </Tab.Navigator>
+    </OrderBagBanner>
   );
 };
 
@@ -45,11 +47,9 @@ const ProductListScreen = ({ route, navigation }: ProductListScreenProps) => {
   };
 
   return (
-    <OrderBagBanner>
-      <ProductList
-        products={categoryProducts ?? []}
-        onProductPress={onProductPress}
-      />
-    </OrderBagBanner>
+    <ProductList
+      products={categoryProducts ?? []}
+      onProductPress={onProductPress}
+    />
   );
 };
