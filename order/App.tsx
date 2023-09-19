@@ -4,7 +4,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Repository } from "@self/domain";
 import { InMemoryDatabase } from "./src/database";
 import { OrderBagProvider, RepositoryContext } from "./src/context";
-import { ProductCatalogScreen, ProductOrderScreen } from "./src/screens";
+import {
+  OrderBagScreen,
+  ProductCatalogScreen,
+  ProductOrderScreen,
+} from "./src/screens";
 import { useNewOrderBag } from "./src/hooks";
 
 const repository: Repository = new InMemoryDatabase();
@@ -32,6 +36,13 @@ export default function App() {
                   title: "Pedido do Produto",
                 }}
                 component={ProductOrderScreen}
+              />
+              <Stack.Screen
+                name="OrderBag"
+                options={{
+                  title: "Sacola",
+                }}
+                component={OrderBagScreen}
               />
             </Stack.Navigator>
           </NavigationContainer>

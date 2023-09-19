@@ -3,7 +3,14 @@ import { Banner, Text, useTheme } from "react-native-paper";
 import { useOrderBag } from "../hooks";
 import { numberToCurrency } from "../utilities";
 
-export const OrderBagBanner: FC<PropsWithChildren> = ({ children }) => {
+export type OrderBagBannerProps = {
+  onOrderBagPress?: () => void;
+};
+
+export const OrderBagBanner: FC<PropsWithChildren<OrderBagBannerProps>> = ({
+  onOrderBagPress,
+  children,
+}) => {
   const theme = useTheme();
   const { orderProducts, totalPrice } = useOrderBag();
   const visible = useMemo(() => orderProducts.length > 0, [orderProducts]);
@@ -21,11 +28,13 @@ export const OrderBagBanner: FC<PropsWithChildren> = ({ children }) => {
         actions={[
           {
             label: "Ver sacola",
-            onPress: () => console.log("Pressed"),
+            onPress: onOrderBagPress,
           },
         ]}
       >
-        <Text style={{ fontWeight: "bold" }}>{numberToCurrency(totalPrice)}</Text>
+        <Text style={{ fontWeight: "bold" }}>
+          {numberToCurrency(totalPrice)}
+        </Text>
         <Text
           style={{
             color: theme.colors.secondary,

@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { Text } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -7,14 +8,24 @@ import { OrderBagBanner, ProductList } from "../components";
 
 const Tab = createMaterialTopTabNavigator();
 
-export const ProductCatalogScreen = () => {
+export type ProductCatalogScreenProps = {
+  navigation: any;
+};
+
+export const ProductCatalogScreen: FC<ProductCatalogScreenProps> = ({
+  navigation,
+}) => {
   const { productCategories, isLoadingProductCategories } =
     useProductCategories();
+
+  const onOrderBagPress = () => {
+    navigation.navigate("OrderBag");
+  };
 
   if (isLoadingProductCategories) return <Text>Loading...</Text>;
   if (!productCategories) return <Text>Product categories not found</Text>;
   return (
-    <OrderBagBanner>
+    <OrderBagBanner onOrderBagPress={onOrderBagPress}>
       <Tab.Navigator
         screenOptions={{
           tabBarScrollEnabled: true,
