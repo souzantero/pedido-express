@@ -1,2 +1,2 @@
 export * from './ProductCatalogScreen'
-export * from './ProductDetailScreen'
+export * from './ProductOrderScreen'

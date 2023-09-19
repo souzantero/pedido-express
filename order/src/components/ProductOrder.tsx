@@ -14,15 +14,15 @@ import { Product } from "@self/domain";
 import { numberToCurrency } from "../utilities";
 import { useAddProductToOrderBag } from "../hooks/useAddProductToOrderBag";
 
-export type ProductDetailProps = {
+export type ProductOrderProps = {
   product: Product;
   onProductAddedToOrderBag?: () => void;
 };
 
-export const ProductDetail = ({
+export const ProductOrder = ({
   product,
   onProductAddedToOrderBag,
-}: ProductDetailProps) => {
+}: ProductOrderProps) => {
   const theme = useTheme();
   const {
     description,

@@ -1,14 +1,14 @@
 import { FC } from "react";
 import { Text } from "react-native-paper";
-import { ProductDetail } from "../components";
+import { ProductOrder } from "../components";
 import { useProductById } from "../hooks";
 
-interface ProductDetailScreenProps {
+interface ProductOrderScreenProps {
   route: any;
   navigation: any;
 }
 
-export const ProductDetailScreen: FC<ProductDetailScreenProps> = ({
+export const ProductOrderScreen: FC<ProductOrderScreenProps> = ({
   route,
   navigation,
 }) => {
@@ -22,7 +22,7 @@ export const ProductDetailScreen: FC<ProductDetailScreenProps> = ({
   if (isLoadingProduct) return <Text>Loading...</Text>;
   if (!product) return <Text>Product not found</Text>;
   return (
-    <ProductDetail
+    <ProductOrder
       product={product}
       onProductAddedToOrderBag={onProductAddedToOrderBag}
     />

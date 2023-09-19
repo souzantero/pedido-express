@@ -1,3 +1,3 @@
 export * from './OrderBagBanner'
-export * from './ProductDetail'
+export * from './ProductOrder'
 export * from './ProductList'

@@ -43,7 +43,7 @@ const ProductListScreen = ({ route, navigation }: ProductListScreenProps) => {
   const { categoryProducts } = useCategoryProducts(productCategoryId);
 
   const onProductPress = (product: Product) => {
-    navigation.navigate("ProductDetail", { productId: product.id });
+    navigation.navigate("ProductOrder", { productId: product.id });
   };
 
   return (
