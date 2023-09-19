@@ -1,1 +1,1 @@
-export * from './numberToMoney'
+export * from './numberToCurrency'

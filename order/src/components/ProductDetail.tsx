@@ -11,7 +11,7 @@ import {
   IconButton,
 } from "react-native-paper";
 import { Product } from "@self/domain";
-import { numberToMoney } from "../utilities";
+import { numberToCurrency } from "../utilities";
 import { useAddProductToOrderBag } from "../hooks/useAddProductToOrderBag";
 
 export type ProductDetailProps = {
@@ -73,7 +73,7 @@ export const ProductDetail = ({
             color: theme.colors.secondary,
           }}
         >
-          {numberToMoney(product.price)}
+          {numberToCurrency(product.price)}
         </Paragraph>
       </View>
       <Divider />
@@ -114,7 +114,7 @@ export const ProductDetail = ({
           mode="contained"
           onPress={handleAddProductToOrderBag}
         >
-          Adicionar - {numberToMoney(totalPrice)}
+          Adicionar - {numberToCurrency(totalPrice)}
         </Button>
       </View>
     </ScrollView>

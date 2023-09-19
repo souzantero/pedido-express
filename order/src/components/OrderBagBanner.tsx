@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren, useMemo } from "react";
 import { Banner, Text, useTheme } from "react-native-paper";
 import { useOrderBag } from "../hooks";
-import { numberToMoney } from "../utilities";
+import { numberToCurrency } from "../utilities";
 
 export const OrderBagBanner: FC<PropsWithChildren> = ({ children }) => {
   const theme = useTheme();
@@ -25,7 +25,7 @@ export const OrderBagBanner: FC<PropsWithChildren> = ({ children }) => {
           },
         ]}
       >
-        <Text style={{ fontWeight: "bold" }}>{numberToMoney(totalPrice)}</Text>
+        <Text style={{ fontWeight: "bold" }}>{numberToCurrency(totalPrice)}</Text>
         <Text
           style={{
             color: theme.colors.secondary,

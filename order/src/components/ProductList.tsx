@@ -1,7 +1,7 @@
 import { FlatList, View } from "react-native";
 import { Card, Text } from "react-native-paper";
 import { Product } from "@self/domain";
-import { numberToMoney } from "../utilities";
+import { numberToCurrency } from "../utilities";
 
 export type ProductListProps = {
   products: Product[];
@@ -55,7 +55,7 @@ export const ProductItem = ({ product, onPress }: ProductItemProps) => {
       <Card.Content>
         <View>
           <Text style={{ fontWeight: "bold" }} variant="titleLarge">
-            {numberToMoney(product.price)}
+            {numberToCurrency(product.price)}
           </Text>
         </View>
       </Card.Content>
