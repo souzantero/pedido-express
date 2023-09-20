@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Image, ScrollView, View } from "react-native";
 import { Button, Divider, IconButton, Text } from "react-native-paper";
-import { useOrderBag } from "../hooks";
+import { useOrderBag } from "../context";
 import { numberToCurrency } from "../utilities";
 
 export const OrderBagScreen: FC = () => {
@@ -16,7 +16,7 @@ export const OrderBagScreen: FC = () => {
       <View style={{ padding: 16 }}>
         {orderBag.orderProducts.map((orderProductBag) => (
           <View
-            key={JSON.stringify(orderProductBag)}
+            key={orderProductBag.key}
             style={{
               marginBottom: 16,
             }}
@@ -49,7 +49,7 @@ export const OrderBagScreen: FC = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  {numberToCurrency(orderProductBag.product.price * orderProductBag.quantity)}
+                  {numberToCurrency(orderProductBag.totalPrice)}
                 </Text>
               </View>
               <View

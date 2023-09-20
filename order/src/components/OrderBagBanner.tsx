@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, useMemo } from "react";
 import { Banner, Text, useTheme } from "react-native-paper";
-import { useOrderBag } from "../hooks";
+import { useOrderBag } from "../context";
 import { numberToCurrency } from "../utilities";
 
 export type OrderBagBannerProps = {

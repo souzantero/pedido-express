@@ -9,18 +9,15 @@ import {
   ProductCatalogScreen,
   ProductOrderScreen,
 } from "./src/screens";
-import { useNewOrderBag } from "./src/hooks";
 
 const repository: Repository = new InMemoryDatabase();
 const Stack = createStackNavigator();
 
 export default function App() {
-  const orderBag = useNewOrderBag();
-
   return (
     <PaperProvider theme={MD3LightTheme}>
       <RepositoryContext.Provider value={repository}>
-        <OrderBagProvider value={orderBag}>
+        <OrderBagProvider>
           <NavigationContainer>
             <Stack.Navigator initialRouteName="ProductCatalog">
               <Stack.Screen
