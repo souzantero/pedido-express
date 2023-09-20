@@ -20,14 +20,14 @@ export class OrderProductBag {
   }
 
   get key() {
-    return `${this.product.id}-${this.quantity}-${this.observation}`;
+    return `${this.product.id}-${this.observation}`;
   }
 }
 
 export type OrderBag = {
   orderProducts: OrderProductBag[];
   addProduct: (orderProduct: OrderProductBag) => void;
-  removeProduct: (orderPRoduct: OrderProductBag) => void;
+  removeProduct: (orderProduct: OrderProductBag) => void;
   increaseQuantity: (orderProduct: OrderProductBag) => void;
   decreaseQuantity: (orderProduct: OrderProductBag) => void;
   totalPrice: number;
@@ -52,12 +52,42 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
     [orderProducts]
   );
 
+  const fixOrderProducts = (newOrderProducts: OrderProductBag[]) => {
+    const newOrderProductsMap = new Map<string, OrderProductBag>();
+
+    newOrderProducts.forEach((orderProduct) => {
+      const key = orderProduct.key;
+      const oldOrderProduct = newOrderProductsMap.get(key);
+
+      if (oldOrderProduct) {
+        newOrderProductsMap.set(
+          key,
+          new OrderProductBag(
+            oldOrderProduct.product,
+            oldOrderProduct.quantity + orderProduct.quantity,
+            oldOrderProduct.observation
+          )
+        );
+      } else {
+        newOrderProductsMap.set(key, orderProduct);
+      }
+    });
+
+    return Array.from(newOrderProductsMap.values());
+  };
+
+  const changeOrderProducts = (newOrderProducts: OrderProductBag[]) => {
+    setOrderProducts(fixOrderProducts(newOrderProducts));
+  };
+
   const addProduct = (orderProduct: OrderProductBag) => {
-    setOrderProducts([...orderProducts, orderProduct]);
+    changeOrderProducts([...orderProducts, orderProduct]);
   };
 
   const removeProduct = (orderProduct: OrderProductBag) => {
-    setOrderProducts(orderProducts.filter((op) => op.key !== orderProduct.key));
+    changeOrderProducts(
+      orderProducts.filter((op) => op.key !== orderProduct.key)
+    );
   };
 
   const increaseQuantity = (orderProduct: OrderProductBag) => {
@@ -68,7 +98,7 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
       return op;
     });
 
-    setOrderProducts(newOrderProducts);
+    changeOrderProducts(newOrderProducts);
   };
 
   const decreaseQuantity = (orderProduct: OrderProductBag) => {
@@ -84,7 +114,7 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
       return op;
     });
 
-    setOrderProducts(newOrderProducts);
+    changeOrderProducts(newOrderProducts);
   };
 
   return (
