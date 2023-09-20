@@ -21,9 +21,9 @@ export const OrderBagScreen: FC = () => {
       }}
     >
       <View style={{ padding: 16 }}>
-        {orderBag.orderProducts.map((orderProductBag) => (
+        {orderBag.orderProducts.map((orderProduct) => (
           <View
-            key={orderProductBag.key}
+            key={orderProduct.key}
             style={{
               marginBottom: 16,
             }}
@@ -42,7 +42,7 @@ export const OrderBagScreen: FC = () => {
                   height: 50,
                   borderRadius: 5,
                 }}
-                source={{ uri: orderProductBag.product.displayImageSource }}
+                source={{ uri: orderProduct.product.displayImageSource }}
               />
               <View
                 style={{
@@ -50,15 +50,15 @@ export const OrderBagScreen: FC = () => {
                   flex: 2,
                 }}
               >
-                <Text>{orderProductBag.product.name}</Text>
-                {orderProductBag.observation && (
+                <Text>{orderProduct.product.name}</Text>
+                {orderProduct.observation && (
                   <Text
                     style={{
                       color: theme.colors.secondary,
                       fontSize: theme.fonts.bodySmall.fontSize,
                     }}
                   >
-                    Obs: {orderProductBag.observation}
+                    Obs: {orderProduct.observation}
                   </Text>
                 )}
                 <Text
@@ -66,7 +66,7 @@ export const OrderBagScreen: FC = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  {numberToCurrency(orderProductBag.totalPrice)}
+                  {numberToCurrency(orderProduct.totalPrice)}
                 </Text>
               </View>
               <View
@@ -78,13 +78,13 @@ export const OrderBagScreen: FC = () => {
                 }}
               >
                 <IconButton
-                  icon={orderProductBag.quantity > 1 ? "minus" : "delete"}
-                  onPress={() => orderBag.decreaseQuantity(orderProductBag)}
+                  icon={orderProduct.quantity > 1 ? "minus" : "delete"}
+                  onPress={() => orderBag.decreaseQuantity(orderProduct)}
                 />
-                <Text>{orderProductBag.quantity}</Text>
+                <Text>{orderProduct.quantity}</Text>
                 <IconButton
                   icon="plus"
-                  onPress={() => orderBag.increaseQuantity(orderProductBag)}
+                  onPress={() => orderBag.increaseQuantity(orderProduct)}
                 />
               </View>
             </View>

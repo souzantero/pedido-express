@@ -1,4 +1,4 @@
-import { Repository } from "@self/domain";
+import { Repository } from "../domain";
 import { createContext, useContext } from "react";
 import { InMemoryDatabase } from "../database";
 

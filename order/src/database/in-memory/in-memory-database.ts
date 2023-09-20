@@ -1,4 +1,4 @@
-import { Repository, ProductRepository, ProductCategoryRepository } from "@self/domain";
+import { Repository, ProductRepository, ProductCategoryRepository } from "../../domain";
 import { InMemoryProductCategoryDatabase } from "./in-memory-product-category-database";
 import { InMemoryProductDatabase } from "./in-memory-product-database";
 

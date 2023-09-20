@@ -10,7 +10,7 @@ import {
   TextInput,
   IconButton,
 } from "react-native-paper";
-import { Product } from "@self/domain";
+import { Product } from "../domain";
 import { numberToCurrency } from "../utilities";
 import { useAddProductToOrderBag } from "../hooks/useAddProductToOrderBag";
 

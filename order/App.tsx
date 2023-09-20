@@ -1,7 +1,7 @@
 import { MD3LightTheme, PaperProvider } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Repository } from "@self/domain";
+import { Repository } from "./src/domain";
 import { InMemoryDatabase } from "./src/database";
 import { OrderBagProvider, RepositoryContext } from "./src/context";
 import {

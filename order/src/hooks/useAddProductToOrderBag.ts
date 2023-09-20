@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { Product } from "@self/domain";
-import { OrderProductBag, useOrderBag } from "../context";
+import { Product } from "../domain";
+import { useOrderBag } from "../context";
 
 export function useAddProductToOrderBag(product: Product) {
   const orderBag = useOrderBag();
@@ -9,7 +9,7 @@ export function useAddProductToOrderBag(product: Product) {
   const totalPrice = useMemo(() => product.price * quantity, [product, quantity])
 
   const addProductToOrderBag = () => {
-    orderBag.addProduct(new OrderProductBag(product, quantity, description));
+    orderBag.addProduct(product, quantity, description);
   };
 
   const increaseQuantity = () => {

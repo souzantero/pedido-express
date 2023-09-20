@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ProductCategory } from "@self/domain";
+import { ProductCategory } from "../domain";
 import { useRepository } from "../context";
 
 export const useProductCategories = () => {

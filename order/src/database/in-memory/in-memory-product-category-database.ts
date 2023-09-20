@@ -1,4 +1,4 @@
-import { FindProductCategoriesRepository, ProductCategory } from '@self/domain'
+import { FindProductCategoriesRepository, ProductCategory } from '../../domain'
 
 export class InMemoryProductCategoryDatabase implements FindProductCategoriesRepository {
   constructor(
