@@ -1,10 +1,17 @@
 import { FC } from "react";
 import { Image, ScrollView, View } from "react-native";
-import { Button, Divider, IconButton, Text } from "react-native-paper";
+import {
+  Button,
+  Divider,
+  IconButton,
+  Text,
+  useTheme,
+} from "react-native-paper";
 import { useOrderBag } from "../context";
 import { numberToCurrency } from "../utilities";
 
 export const OrderBagScreen: FC = () => {
+  const theme = useTheme();
   const orderBag = useOrderBag();
 
   return (
@@ -26,7 +33,7 @@ export const OrderBagScreen: FC = () => {
                 flex: 1,
                 flexDirection: "row",
                 justifyContent: "flex-start",
-                alignItems: "center",
+                alignItems: "flex-start",
               }}
             >
               <Image
@@ -44,6 +51,16 @@ export const OrderBagScreen: FC = () => {
                 }}
               >
                 <Text>{orderProductBag.product.name}</Text>
+                {orderProductBag.observation && (
+                  <Text
+                    style={{
+                      color: theme.colors.secondary,
+                      fontSize: theme.fonts.bodySmall.fontSize,
+                    }}
+                  >
+                    Obs: {orderProductBag.observation}
+                  </Text>
+                )}
                 <Text
                   style={{
                     fontWeight: "bold",
