@@ -14,7 +14,14 @@ export const OrderBagBanner: FC<PropsWithChildren<OrderBagBannerProps>> = ({
   const theme = useTheme();
   const { orderProducts, totalPrice } = useOrderBag();
   const visible = useMemo(() => orderProducts.length > 0, [orderProducts]);
-  const numberOfItems = useMemo(() => orderProducts.length, [orderProducts]);
+  const numberOfItems = useMemo(
+    () =>
+      orderProducts.reduce(
+        (acc, orderProduct) => acc + orderProduct.quantity,
+        0
+      ),
+    [orderProducts]
+  );
   const numberOfItemsText = useMemo(
     () => (numberOfItems > 1 ? "itens" : "item"),
     [numberOfItems]
