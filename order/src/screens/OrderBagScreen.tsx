@@ -62,10 +62,13 @@ export const OrderBagScreen: FC = () => {
               >
                 <IconButton
                   icon={orderProductBag.quantity > 1 ? "minus" : "delete"}
-                  onPress={() => {}}
+                  onPress={() => orderBag.decreaseQuantity(orderProductBag)}
                 />
                 <Text>{orderProductBag.quantity}</Text>
-                <IconButton icon="plus" onPress={() => {}} />
+                <IconButton
+                  icon="plus"
+                  onPress={() => orderBag.increaseQuantity(orderProductBag)}
+                />
               </View>
             </View>
           </View>

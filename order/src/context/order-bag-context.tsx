@@ -28,6 +28,8 @@ export type OrderBag = {
   orderProducts: OrderProductBag[];
   addProduct: (orderProduct: OrderProductBag) => void;
   removeProduct: (orderPRoduct: OrderProductBag) => void;
+  increaseQuantity: (orderProduct: OrderProductBag) => void;
+  decreaseQuantity: (orderProduct: OrderProductBag) => void;
   totalPrice: number;
 };
 
@@ -35,6 +37,8 @@ const OrderBagContext = createContext<OrderBag>({
   orderProducts: [],
   addProduct: () => {},
   removeProduct: () => {},
+  increaseQuantity: () => {},
+  decreaseQuantity: () => {},
   totalPrice: 0,
 });
 
@@ -56,12 +60,41 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
     setOrderProducts(orderProducts.filter((op) => op.key !== orderProduct.key));
   };
 
+  const increaseQuantity = (orderProduct: OrderProductBag) => {
+    const newOrderProducts = orderProducts.map((op) => {
+      if (op.key === orderProduct.key) {
+        return new OrderProductBag(op.product, op.quantity + 1, op.observation);
+      }
+      return op;
+    });
+
+    setOrderProducts(newOrderProducts);
+  };
+
+  const decreaseQuantity = (orderProduct: OrderProductBag) => {
+    if (orderProduct.quantity === 1) {
+      removeProduct(orderProduct);
+      return;
+    }
+
+    const newOrderProducts = orderProducts.map((op) => {
+      if (op.key === orderProduct.key) {
+        return new OrderProductBag(op.product, op.quantity - 1, op.observation);
+      }
+      return op;
+    });
+
+    setOrderProducts(newOrderProducts);
+  };
+
   return (
     <OrderBagContext.Provider
       value={{
         orderProducts,
         addProduct,
         removeProduct,
+        increaseQuantity,
+        decreaseQuantity,
         totalPrice,
       }}
     >
