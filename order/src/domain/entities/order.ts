@@ -7,16 +7,14 @@ export enum OrderStatus {
   Finished = 'finished', // This is when the order is picked up
 }
 
-export interface Order {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt?: Date;
+export class Order {
+  constructor(
+    public readonly orderProducts: OrderProduct[] = [],
+  ) { }
 
-  status: OrderStatus;
-
-  isTakeout: boolean;
-  customerName: string;
-
-  orderProducts?: OrderProduct[];
+  get totalPrice(): number {
+    return this.orderProducts.reduce((total, orderProduct) => {
+      return total + orderProduct.totalPrice;
+    }, 0);
+  }
 }

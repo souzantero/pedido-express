@@ -12,15 +12,18 @@ export const OrderBagBanner: FC<PropsWithChildren<OrderBagBannerProps>> = ({
   children,
 }) => {
   const theme = useTheme();
-  const { orderProducts, totalPrice } = useOrderBag();
-  const visible = useMemo(() => orderProducts.length > 0, [orderProducts]);
+  const { order } = useOrderBag();
+  const visible = useMemo(
+    () => order.orderProducts.length > 0,
+    [order.orderProducts]
+  );
   const numberOfItems = useMemo(
     () =>
-      orderProducts.reduce(
+      order.orderProducts.reduce(
         (acc, orderProduct) => acc + orderProduct.quantity,
         0
       ),
-    [orderProducts]
+    [order.orderProducts]
   );
   const numberOfItemsText = useMemo(
     () => (numberOfItems > 1 ? "itens" : "item"),
@@ -40,7 +43,7 @@ export const OrderBagBanner: FC<PropsWithChildren<OrderBagBannerProps>> = ({
         ]}
       >
         <Text style={{ fontWeight: "bold" }}>
-          {numberToCurrency(totalPrice)}
+          {numberToCurrency(order.totalPrice)}
         </Text>
         <Text
           style={{

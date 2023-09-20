@@ -6,10 +6,10 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Order, OrderProduct, OrderStatus, Product } from "../domain";
+import { Order, OrderProduct, Product } from "../domain";
 
 export type OrderBag = {
-  orderProducts: OrderProduct[];
+  order: Order;
   addProduct: (
     product: Product,
     quantity: number,
@@ -18,37 +18,19 @@ export type OrderBag = {
   removeProduct: (orderProduct: OrderProduct) => void;
   increaseQuantity: (orderProduct: OrderProduct) => void;
   decreaseQuantity: (orderProduct: OrderProduct) => void;
-  totalPrice: number;
 };
 
 const OrderBagContext = createContext<OrderBag>({
-  orderProducts: [],
+  order: new Order(),
   addProduct: () => {},
   removeProduct: () => {},
   increaseQuantity: () => {},
   decreaseQuantity: () => {},
-  totalPrice: 0,
 });
 
 export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
-  const order: Order = {
-    id: Date.now().toString(),
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    status: OrderStatus.Pending,
-    isTakeout: false,
-    customerName: "",
-  };
-
-  const [orderProducts, setOrderProducts] = useState<OrderProduct[]>([]);
-  const totalPrice = useMemo(
-    () =>
-      orderProducts.reduce((acc, orderProduct) => {
-        return acc + orderProduct.totalPrice;
-      }, 0),
-    [orderProducts]
-  );
-
+  const [order, setOrder] = useState<Order>(new Order());
+  
   const addProduct = (
     product: Product,
     quantity: number,
@@ -61,7 +43,7 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
       observation
     );
 
-    const existingOrderProduct = orderProducts.find(
+    const existingOrderProduct = order.orderProducts.find(
       (op) => op.key === orderProduct.key
     );
 
@@ -70,18 +52,20 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
       return;
     }
 
-    setOrderProducts([...orderProducts, orderProduct]);
+    setOrder(new Order([...order.orderProducts, orderProduct]));
   };
 
   const removeProduct = (orderProduct: OrderProduct) => {
-    setOrderProducts(orderProducts.filter((op) => op.key !== orderProduct.key));
+    setOrder(
+      new Order(order.orderProducts.filter((op) => op.key !== orderProduct.key))
+    );
   };
 
   const increaseQuantity = (
     orderProduct: OrderProduct,
     quantity: number = 1
   ) => {
-    const newOrderProducts = orderProducts.map((op) => {
+    const newOrderProducts = order.orderProducts.map((op) => {
       if (op.key === orderProduct.key) {
         return new OrderProduct(
           order,
@@ -93,7 +77,7 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
       return op;
     });
 
-    setOrderProducts(newOrderProducts);
+    setOrder(new Order(newOrderProducts));
   };
 
   const decreaseQuantity = (orderProduct: OrderProduct) => {
@@ -102,7 +86,7 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
       return;
     }
 
-    const newOrderProducts = orderProducts.map((op) => {
+    const newOrderProducts = order.orderProducts.map((op) => {
       if (op.key === orderProduct.key) {
         return new OrderProduct(
           order,
@@ -114,20 +98,22 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
       return op;
     });
 
-    setOrderProducts(newOrderProducts);
+    setOrder(new Order(newOrderProducts));
   };
 
+  const orderBag = useMemo<OrderBag>(
+    () => ({
+      order,
+      addProduct,
+      removeProduct,
+      increaseQuantity,
+      decreaseQuantity,
+    }),
+    [order]
+  );
+  
   return (
-    <OrderBagContext.Provider
-      value={{
-        orderProducts,
-        addProduct,
-        removeProduct,
-        increaseQuantity,
-        decreaseQuantity,
-        totalPrice,
-      }}
-    >
+    <OrderBagContext.Provider value={orderBag}>
       {children}
     </OrderBagContext.Provider>
   );

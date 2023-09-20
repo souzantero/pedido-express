@@ -21,7 +21,7 @@ export const OrderBagScreen: FC = () => {
       }}
     >
       <View style={{ padding: 16 }}>
-        {orderBag.orderProducts.map((orderProduct) => (
+        {orderBag.order.orderProducts.map((orderProduct) => (
           <View
             key={orderProduct.key}
             style={{
@@ -101,7 +101,7 @@ export const OrderBagScreen: FC = () => {
         }}
       >
         <Text style={{ fontWeight: "bold" }}>Total</Text>
-        <Text>{numberToCurrency(orderBag.totalPrice)}</Text>
+        <Text>{numberToCurrency(orderBag.order.totalPrice)}</Text>
       </View>
       <View
         style={{
@@ -111,7 +111,7 @@ export const OrderBagScreen: FC = () => {
         <Button
           mode="contained"
           onPress={() => {}}
-          disabled={orderBag.orderProducts.length === 0}
+          disabled={orderBag.order.orderProducts.length === 0}
         >
           Finalizar pedido
         </Button>
