@@ -10,9 +10,17 @@ import {
 import { useOrderBag } from "../context";
 import { numberToCurrency } from "../utilities";
 
-export const OrderBagScreen: FC = () => {
+export type OrderBagScreenProps = {
+  navigation: any;
+};
+
+export const OrderBagScreen: FC<OrderBagScreenProps> = ({ navigation }) => {
   const theme = useTheme();
   const orderBag = useOrderBag();
+
+  const onContinuePress = () => {
+    navigation.navigate("OrderTakeout");
+  };
 
   return (
     <ScrollView
@@ -110,10 +118,10 @@ export const OrderBagScreen: FC = () => {
       >
         <Button
           mode="contained"
-          onPress={() => {}}
+          onPress={onContinuePress}
           disabled={orderBag.order.orderProducts.length === 0}
         >
-          Finalizar pedido
+          Continuar
         </Button>
       </View>
     </ScrollView>

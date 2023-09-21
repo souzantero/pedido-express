@@ -6,6 +6,7 @@ import { InMemoryDatabase } from "./src/database";
 import { OrderBagProvider, RepositoryContext } from "./src/context";
 import {
   OrderBagScreen,
+  OrderTakeoutScreen,
   ProductCatalogScreen,
   ProductOrderScreen,
 } from "./src/screens";
@@ -40,6 +41,13 @@ export default function App() {
                   title: "Sacola",
                 }}
                 component={OrderBagScreen}
+              />
+              <Stack.Screen
+                name="OrderTakeout"
+                options={{
+                  title: "Retirada",
+                }}
+                component={OrderTakeoutScreen}
               />
             </Stack.Navigator>
           </NavigationContainer>

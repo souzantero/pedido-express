@@ -10,6 +10,7 @@ export enum OrderStatus {
 export class Order {
   constructor(
     public readonly orderProducts: OrderProduct[] = [],
+    public readonly isTakeout: boolean = false,
   ) { }
 
   get totalPrice(): number {

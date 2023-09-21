@@ -18,6 +18,7 @@ export type OrderBag = {
   removeProduct: (orderProduct: OrderProduct) => void;
   increaseQuantity: (orderProduct: OrderProduct) => void;
   decreaseQuantity: (orderProduct: OrderProduct) => void;
+  setIsTakeout: (isTakeout: boolean) => void;
 };
 
 const OrderBagContext = createContext<OrderBag>({
@@ -26,6 +27,7 @@ const OrderBagContext = createContext<OrderBag>({
   removeProduct: () => {},
   increaseQuantity: () => {},
   decreaseQuantity: () => {},
+  setIsTakeout: () => {},
 });
 
 export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -101,6 +103,10 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
     setOrder(new Order(newOrderProducts));
   };
 
+  const setIsTakeout = (isTakeout: boolean) => {
+    setOrder(new Order(order.orderProducts, isTakeout));
+  }
+
   const orderBag = useMemo<OrderBag>(
     () => ({
       order,
@@ -108,6 +114,7 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
       removeProduct,
       increaseQuantity,
       decreaseQuantity,
+      setIsTakeout,
     }),
     [order]
   );
