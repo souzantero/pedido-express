@@ -1,4 +1,5 @@
 export * from './OrderBagScreen'
+export * from './OrderCustomerNameScreen'
 export * from './OrderTakeoutScreen'
 export * from './ProductCatalogScreen'
 export * from './ProductOrderScreen'

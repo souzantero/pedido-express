@@ -11,6 +11,7 @@ export class Order {
   constructor(
     public readonly orderProducts: OrderProduct[] = [],
     public readonly isTakeout: boolean = false,
+    public readonly customerName: string = '',
   ) { }
 
   get totalPrice(): number {
