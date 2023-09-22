@@ -1,5 +1,12 @@
-import { MD3LightTheme, PaperProvider } from "react-native-paper";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  MD3LightTheme,
+  PaperProvider,
+  adaptNavigationTheme,
+} from "react-native-paper";
+import {
+  DefaultTheme as NavigationDefaultTheme,
+  NavigationContainer,
+} from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Repository } from "./src/domain";
 import { InMemoryDatabase } from "./src/database";
@@ -16,11 +23,25 @@ const repository: Repository = new InMemoryDatabase();
 const Stack = createStackNavigator();
 
 export default function App() {
+  const { LightTheme } = adaptNavigationTheme({
+    reactNavigationLight: NavigationDefaultTheme,
+  });
+
+  const theme = {
+    ...MD3LightTheme,
+    ...LightTheme,
+    colors: {
+      ...MD3LightTheme.colors,
+      ...LightTheme.colors,
+      primary: "#f44336",
+    },
+  };
+
   return (
-    <PaperProvider theme={MD3LightTheme}>
+    <PaperProvider theme={theme}>
       <RepositoryContext.Provider value={repository}>
         <OrderBagProvider>
-          <NavigationContainer>
+          <NavigationContainer theme={theme}>
             <Stack.Navigator initialRouteName="ProductCatalog">
               <Stack.Screen
                 name="ProductCatalog"
