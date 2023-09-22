@@ -18,6 +18,7 @@ import {
   ProductCatalogScreen,
   ProductOrderScreen,
 } from "./src/screens";
+import { CleanOrderBagButton } from "./src/components";
 
 const repository: Repository = new InMemoryDatabase();
 const Stack = createStackNavigator();
@@ -59,23 +60,32 @@ export default function App() {
               />
               <Stack.Screen
                 name="OrderBag"
-                options={{
+                options={({ navigation }) => ({
                   title: "Sacola",
-                }}
+                  headerRight: () => (
+                    <CleanOrderBagButton navigation={navigation} />
+                  ),
+                })}
                 component={OrderBagScreen}
               />
               <Stack.Screen
                 name="OrderTakeout"
-                options={{
+                options={({ navigation }) => ({
                   title: "Retirada",
-                }}
+                  headerRight: () => (
+                    <CleanOrderBagButton navigation={navigation} />
+                  ),
+                })}
                 component={OrderTakeoutScreen}
               />
               <Stack.Screen
                 name="OrderCustomerName"
-                options={{
+                options={({ navigation }) => ({
                   title: "Nome do Cliente",
-                }}
+                  headerRight: () => (
+                    <CleanOrderBagButton navigation={navigation} />
+                  ),
+                })}
                 component={OrderCustomerNameScreen}
               />
             </Stack.Navigator>
