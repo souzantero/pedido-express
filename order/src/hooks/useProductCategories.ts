@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ProductCategory } from "../domain";
+import { ProductCategory } from "@pedido-express/domain";
 import { useRepository } from "../context";
 
 export const useProductCategories = () => {

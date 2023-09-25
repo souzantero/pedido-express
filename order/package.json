@@ -1,5 +1,5 @@
 {
-  "name": "order-app",
+  "name": "@pedido-express/order",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@pedido-express/domain": "^0.0.1",
     "@react-navigation/material-top-tabs": "^6.6.3",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/stack": "^6.3.17",

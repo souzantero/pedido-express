@@ -1,4 +1,4 @@
-import { FindProductsRepository, Product } from '../../domain'
+import { FindProductsRepository, Product } from '@pedido-express/domain'
 
 export class InMemoryProductDatabase implements FindProductsRepository {
   constructor(

@@ -1,6 +1,6 @@
 import { FlatList, View } from "react-native";
 import { Card, Text } from "react-native-paper";
-import { Product } from "../domain";
+import { Product } from "@pedido-express/domain";
 import { numberToCurrency } from "../utilities";
 
 export type ProductListProps = {

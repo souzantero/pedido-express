@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Product } from "../domain"
+import { Product } from "@pedido-express/domain"
 import { useRepository } from "../context"
 
 export const useProducts = () => {

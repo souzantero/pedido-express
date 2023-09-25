@@ -1,4 +1,4 @@
-import { Repository } from "../domain";
+import { Repository } from "@pedido-express/domain";
 import { createContext, useContext } from "react";
 import { InMemoryDatabase } from "../database";
 

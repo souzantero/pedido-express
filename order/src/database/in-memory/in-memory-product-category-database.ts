@@ -1,4 +1,4 @@
-import { FindProductCategoriesRepository, ProductCategory } from '../../domain'
+import { FindProductCategoriesRepository, ProductCategory } from '@pedido-express/domain'
 
 export class InMemoryProductCategoryDatabase implements FindProductCategoriesRepository {
   constructor(

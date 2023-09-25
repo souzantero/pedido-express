@@ -6,7 +6,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Order, OrderProduct, Product } from "../domain";
+import { Order, OrderProduct, Product } from "@pedido-express/domain";
 
 export type OrderBag = {
   order: Order;
