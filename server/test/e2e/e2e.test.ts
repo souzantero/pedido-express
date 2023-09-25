@@ -4,7 +4,7 @@ import { AddressInfo } from 'node:net';
 
 import { App } from '../../src/main/app';
 import { InMemoryDatabase } from '../../src/main/databases';
-import { shouldCreateANewCustomer } from './asserts/customer-asserts';
+import { shouldReturnAListOfProducts } from './asserts/product-asserts';
 
 const database = new InMemoryDatabase();
 const app = App.create(database);
@@ -27,7 +27,7 @@ describe('e2e', () => {
     server.close();
   });
 
-  describe('POST /customers', () => {
-    it('should create a new customer', () => shouldCreateANewCustomer({ api }));
+  describe('GET /products', () => {
+    it('should return a list of products', () => shouldReturnAListOfProducts({ api }));
   });
 });
