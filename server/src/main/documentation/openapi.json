@@ -50,6 +50,40 @@
           }
         }
       }
+    },
+    "/product-categories": {
+      "get": {
+        "tags": [
+          "Product Categories"
+        ],
+        "summary": "Lista todas as categorias de produtos",
+        "operationId": "getProductCategories",
+        "responses": {
+          "200": {
+            "description": "Categorias encontradas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductCategory"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -69,8 +103,7 @@
         "required": [
           "name",
           "description",
-          "price",
-          "type"
+          "price"
         ],
         "properties": {
           "id": {
@@ -124,6 +157,41 @@
             "format": "uuid",
             "example": "d290f1ee-6c54-4b01-90e6-d701748f0851",
             "description": "Identificador único da categoria do produto"
+          }
+        }
+      },
+      "ProductCategory": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identificador único da categoria do produto"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de criação da categoria do produto"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de atualização da categoria do produto"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de exclusão da categoria do produto"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 255,
+            "example": "Bebidas",
+            "description": "Nome da categoria do produto"
           }
         }
       }

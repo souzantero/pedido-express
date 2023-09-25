@@ -4,7 +4,10 @@ import { AddressInfo } from 'node:net';
 
 import { App } from '../../src/main/app';
 import { InMemoryDatabase } from '../../src/main/databases';
-import { shouldReturnAListOfProducts } from './asserts/product-asserts';
+import {
+  shouldReturnAListOfProducts,
+  shouldReturnAListOfProductCategories,
+} from './asserts';
 
 const database = new InMemoryDatabase();
 const app = App.create(database);
@@ -28,6 +31,12 @@ describe('e2e', () => {
   });
 
   describe('GET /products', () => {
-    it('should return a list of products', () => shouldReturnAListOfProducts({ api }));
+    it('should return a list of products', () =>
+      shouldReturnAListOfProducts({ api }));
+  });
+
+  describe('GET /product-categories', () => {
+    it('should return a list of product categories', () =>
+      shouldReturnAListOfProductCategories({ api }));
   });
 });
