@@ -1,0 +1,132 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Pedido Express API",
+    "description": "API para gerenciamento de pedidos de uma lanchonete",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Felipe Antero",
+      "email": "souzantero@gmail.com",
+      "url": "https://linkedin.com/in/souzantero"
+    }
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "Servidor de desenvolvimento"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Lista todos os produtos",
+        "operationId": "getProducts",
+        "responses": {
+          "200": {
+            "description": "Produtos encontrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Mensagem de erro",
+            "example": "Erro ao executar a operação"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "required": [
+          "name",
+          "description",
+          "price",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identificador único do produto"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de criação do produto"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de atualização do produto"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de exclusão do produto"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 255,
+            "example": "Coca-Cola",
+            "description": "Nome do produto"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 255,
+            "example": "Refrigerante de cola",
+            "description": "Descrição do produto"
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "example": 5.5,
+            "description": "Preço do produto"
+          },
+          "displayImageSource": {
+            "type": "string",
+            "format": "url",
+            "example": "https://www.cocacola.com.br/content/dam/GO/CokeZone/Common/Share/Products/COCA-COLA-ORIGINAL-350ML.png",
+            "description": "URL da imagem do produto"
+          },
+          "categoryId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+            "description": "Identificador único da categoria do produto"
+          }
+        }
+      }
+    }
+  }
+}
