@@ -9,7 +9,6 @@ import {
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Repository } from "@pedido-express/domain";
-import { InMemoryDatabase } from "./src/database";
 import { OrderBagProvider, RepositoryContext } from "./src/context";
 import {
   OrderBagScreen,
@@ -19,8 +18,11 @@ import {
   ProductOrderScreen,
 } from "./src/screens";
 import { CleanOrderBagButton } from "./src/components";
+import { RepositoryProvider } from "./src/provider";
+import { Client } from "@pedido-express/sdk";
 
-const repository: Repository = new InMemoryDatabase();
+const client = new Client("http://192.168.100.4:3000/api");
+const repository: Repository = new RepositoryProvider(client);
 const Stack = createStackNavigator();
 
 export default function App() {
