@@ -5,6 +5,7 @@ import { AddressInfo } from 'node:net';
 import { App } from '../../src/main/app';
 import { InMemoryDatabase } from '../../src/main/databases';
 import {
+  shouldCreateANewOrder,
   shouldReturnAListOfProducts,
   shouldReturnAListOfProductCategories,
 } from './asserts';
@@ -38,5 +39,9 @@ describe('e2e', () => {
   describe('GET /product-categories', () => {
     it('should return a list of product categories', () =>
       shouldReturnAListOfProductCategories({ api }));
+  });
+
+  describe('POST /orders', () => {
+    it('should create a new order', () => shouldCreateANewOrder({ api }));
   });
 });

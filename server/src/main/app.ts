@@ -4,7 +4,7 @@ import swagger from 'swagger-ui-express';
 
 import { Repository } from '@pedido-express/domain';
 import openapi from './documentation/openapi.json';
-import { productRoutes, productCategoryRoutes } from './routes';
+import { orderRoutes, productRoutes, productCategoryRoutes } from './routes';
 
 export class App {
   private constructor(private readonly app: express.Express) {}
@@ -17,6 +17,7 @@ export class App {
     const router = Router();
     productRoutes(router, repository);
     productCategoryRoutes(router, repository);
+    orderRoutes(router, repository);
 
     router.get('/health', (_, res) =>
       res.status(200).json({

@@ -17,6 +17,66 @@
     }
   ],
   "paths": {
+    "/orders": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Cria um novo pedido",
+        "operationId": "createOrder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pedido criado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Produto não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/products": {
       "get": {
         "tags": [
@@ -98,13 +158,134 @@
           }
         }
       },
-      "Product": {
+      "CreateOrderInput": {
         "type": "object",
         "required": [
-          "name",
-          "description",
-          "price"
+          "customerName",
+          "isTakeAway",
+          "orderProducts"
         ],
+        "properties": {
+          "customerName": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 255,
+            "example": "Felipe Antero",
+            "description": "Nome do cliente"
+          },
+          "isTakeAway": {
+            "type": "boolean",
+            "example": true,
+            "description": "Indica se o pedido é para viagem"
+          },
+          "orderProducts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "productId",
+                "quantity"
+              ],
+              "properties": {
+                "productId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                  "description": "Identificador único do produto"
+                },
+                "quantity": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 2,
+                  "description": "Quantidade do produto"
+                },
+                "observation": {
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 255,
+                  "example": "Sem gelo",
+                  "description": "Observação do produto"
+                }
+              }
+            },
+            "description": "Produtos do pedido"
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identificador único do pedido"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de criação do pedido"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de atualização do pedido"
+          },
+          "code": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 255,
+            "example": "PED-0001",
+            "description": "Código do pedido"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "PREPARING",
+              "READY",
+              "DELIVERED",
+              "CANCELED"
+            ],
+            "example": "PENDING",
+            "description": "Status do pedido"
+          },
+          "isTakeAway": {
+            "type": "boolean",
+            "example": true,
+            "description": "Indica se o pedido é para viagem"
+          },
+          "customerName": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 255,
+            "example": "Felipe Antero",
+            "description": "Nome do cliente"
+          }
+        }
+      },
+      "OrderProduct": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "example": 2,
+            "description": "Quantidade do produto"
+          },
+          "observation": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 255,
+            "example": "Sem gelo",
+            "description": "Observação do produto"
+          },
+          "product": {
+            "$ref": "#/components/schemas/Product"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
         "properties": {
           "id": {
             "type": "string",
@@ -120,11 +301,6 @@
             "type": "string",
             "format": "date-time",
             "description": "Data de atualização do produto"
-          },
-          "deletedAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Data de exclusão do produto"
           },
           "name": {
             "type": "string",
@@ -162,9 +338,6 @@
       },
       "ProductCategory": {
         "type": "object",
-        "required": [
-          "name"
-        ],
         "properties": {
           "id": {
             "type": "string",
