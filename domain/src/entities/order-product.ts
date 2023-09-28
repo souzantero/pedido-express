@@ -1,9 +1,7 @@
-import { Order } from "./order";
 import { Product } from "./product";
 
 export class OrderProduct {
   constructor(
-    public readonly order: Order,
     public readonly product: Product,
     public readonly quantity: number,
     public readonly observation?: string
