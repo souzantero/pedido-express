@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Text } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { Product } from "@pedido-express/domain";
+import { Product } from "@pedido-express/core";
 import { useCategoryProducts, useProductCategories } from "../hooks";
 import { OrderBagBanner, ProductList } from "../components";
 

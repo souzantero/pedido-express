@@ -45,7 +45,7 @@ export const OrderCustomerNameScreen: FC = () => {
           width: "100%",
         }}
         autoFocus
-        value={orderBag.order.customerName}
+        value={orderBag.customerName}
         onChangeText={(text) => orderBag.setCustomerName(text)}
       />
       <Button

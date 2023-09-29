@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Product } from "@pedido-express/domain";
+import { Product } from "@pedido-express/core";
 import { useOrderBag } from "../context";
 
 export function useAddProductToOrderBag(product: Product) {

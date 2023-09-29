@@ -6,10 +6,10 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Order, OrderProduct, Product } from "@pedido-express/domain";
+import { OrderProduct, OrderProducts, Product } from "@pedido-express/core";
 
 export type OrderBag = {
-  order: Order;
+  orderProducts: OrderProducts;
   addProduct: (
     product: Product,
     quantity: number,
@@ -18,38 +18,41 @@ export type OrderBag = {
   removeProduct: (orderProduct: OrderProduct) => void;
   increaseQuantity: (orderProduct: OrderProduct) => void;
   decreaseQuantity: (orderProduct: OrderProduct) => void;
-  setIsTakeout: (isTakeout: boolean) => void;
+  isTakeAway: boolean;
+  setIsTakeAway: (isTakeAway: boolean) => void;
+  customerName?: string;
   setCustomerName: (customerName: string) => void;
   clear: () => void;
 };
 
 const OrderBagContext = createContext<OrderBag>({
-  order: new Order(),
+  orderProducts: new OrderProducts([]),
+  isTakeAway: false,
+  customerName: undefined,
   addProduct: () => {},
   removeProduct: () => {},
   increaseQuantity: () => {},
   decreaseQuantity: () => {},
-  setIsTakeout: () => {},
+  setIsTakeAway: () => {},
   setCustomerName: () => {},
   clear: () => {},
 });
 
 export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [order, setOrder] = useState<Order>(new Order());
+  const [customerName, setCustomerName] = useState<string>();
+  const [isTakeAway, setIsTakeAway] = useState<boolean>(false);
+  const [orderProducts, setOrderProducts] = useState<OrderProducts>(
+    new OrderProducts([])
+  );
 
   const addProduct = (
     product: Product,
     quantity: number,
     observation?: string
   ) => {
-    const orderProduct = new OrderProduct(
-      order,
-      product,
-      quantity,
-      observation
-    );
+    const orderProduct = new OrderProduct(product, quantity, observation);
 
-    const existingOrderProduct = order.orderProducts.find(
+    const existingOrderProduct = orderProducts.find(
       (op) => op.key === orderProduct.key
     );
 
@@ -58,12 +61,14 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
       return;
     }
 
-    setOrder(new Order([...order.orderProducts, orderProduct]));
+    setOrderProducts(new OrderProducts([...orderProducts, orderProduct]));
   };
 
   const removeProduct = (orderProduct: OrderProduct) => {
-    setOrder(
-      new Order(order.orderProducts.filter((op) => op.key !== orderProduct.key))
+    setOrderProducts(
+      new OrderProducts(
+        orderProducts.filter((op) => op.key !== orderProduct.key)
+      )
     );
   };
 
@@ -71,10 +76,9 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
     orderProduct: OrderProduct,
     quantity: number = 1
   ) => {
-    const newOrderProducts = order.orderProducts.map((op) => {
+    const newOrderProducts = orderProducts.map((op) => {
       if (op.key === orderProduct.key) {
         return new OrderProduct(
-          order,
           op.product,
           op.quantity + quantity,
           op.observation
@@ -83,7 +87,7 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
       return op;
     });
 
-    setOrder(new Order(newOrderProducts));
+    setOrderProducts(new OrderProducts(newOrderProducts));
   };
 
   const decreaseQuantity = (orderProduct: OrderProduct) => {
@@ -92,45 +96,36 @@ export const OrderBagProvider: FC<PropsWithChildren> = ({ children }) => {
       return;
     }
 
-    const newOrderProducts = order.orderProducts.map((op) => {
+    const newOrderProducts = orderProducts.map((op) => {
       if (op.key === orderProduct.key) {
-        return new OrderProduct(
-          order,
-          op.product,
-          op.quantity - 1,
-          op.observation
-        );
+        return new OrderProduct(op.product, op.quantity - 1, op.observation);
       }
       return op;
     });
 
-    setOrder(new Order(newOrderProducts));
-  };
-
-  const setIsTakeout = (isTakeout: boolean) => {
-    setOrder(new Order(order.orderProducts, isTakeout));
-  };
-
-  const setCustomerName = (customerName: string) => {
-    setOrder(new Order(order.orderProducts, order.isTakeout, customerName));
+    setOrderProducts(new OrderProducts(newOrderProducts));
   };
 
   const clear = () => {
-    setOrder(new Order());
-  }
+    setOrderProducts(new OrderProducts([]));
+    setIsTakeAway(false);
+    setCustomerName(undefined);
+  };
 
   const orderBag = useMemo<OrderBag>(
     () => ({
-      order,
+      orderProducts,
+      isTakeAway,
+      customerName,
       addProduct,
       removeProduct,
       increaseQuantity,
       decreaseQuantity,
-      setIsTakeout,
+      setIsTakeAway,
       setCustomerName,
       clear,
     }),
-    [order]
+    [orderProducts, isTakeAway, customerName]
   );
 
   return (

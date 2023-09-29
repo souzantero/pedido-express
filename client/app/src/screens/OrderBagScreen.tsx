@@ -19,7 +19,7 @@ export const OrderBagScreen: FC<OrderBagScreenProps> = ({ navigation }) => {
   const orderBag = useOrderBag();
 
   const onContinuePress = () => {
-    navigation.navigate("OrderTakeout");
+    navigation.navigate("OrderTakeAway");
   };
 
   return (
@@ -29,7 +29,7 @@ export const OrderBagScreen: FC<OrderBagScreenProps> = ({ navigation }) => {
       }}
     >
       <View style={{ padding: 16 }}>
-        {orderBag.order.orderProducts.map((orderProduct) => (
+        {orderBag.orderProducts.map((orderProduct) => (
           <View
             key={orderProduct.key}
             style={{
@@ -50,7 +50,7 @@ export const OrderBagScreen: FC<OrderBagScreenProps> = ({ navigation }) => {
                   height: 50,
                   borderRadius: 5,
                 }}
-                source={{ uri: orderProduct.product.displayImageSource }}
+                source={{ uri: orderProduct.product.imageSource }}
               />
               <View
                 style={{
@@ -109,7 +109,7 @@ export const OrderBagScreen: FC<OrderBagScreenProps> = ({ navigation }) => {
         }}
       >
         <Text style={{ fontWeight: "bold" }}>Total</Text>
-        <Text>{numberToCurrency(orderBag.order.totalPrice)}</Text>
+        <Text>{numberToCurrency(orderBag.orderProducts.totalPrice)}</Text>
       </View>
       <View
         style={{
@@ -119,7 +119,7 @@ export const OrderBagScreen: FC<OrderBagScreenProps> = ({ navigation }) => {
         <Button
           mode="contained"
           onPress={onContinuePress}
-          disabled={orderBag.order.orderProducts.length === 0}
+          disabled={orderBag.orderProducts.length === 0}
         >
           Continuar
         </Button>

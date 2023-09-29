@@ -1,7 +1,8 @@
-import { Product, ProductRepository } from "@pedido-express/domain";
+import { Product } from "@pedido-express/core";
 import { Client } from "@pedido-express/sdk";
+import { ProductService } from "../../service";
 
-export class RepositoryProductProvider implements ProductRepository {
+export class ProductServiceProvider implements ProductService {
   constructor(
     private readonly client: Client
   ) { }

@@ -10,7 +10,7 @@ import {
   TextInput,
   IconButton,
 } from "react-native-paper";
-import { Product } from "@pedido-express/domain";
+import { Product } from "@pedido-express/core";
 import { numberToCurrency } from "../utilities";
 import { useAddProductToOrderBag } from "../hooks/useAddProductToOrderBag";
 
@@ -50,7 +50,7 @@ export const ProductOrder = ({
           width: "100%",
           height: 200,
         }}
-        source={{ uri: product.displayImageSource }}
+        source={{ uri: product.imageSource }}
       />
       <View
         style={{

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { ProductCategory } from "@pedido-express/domain";
-import { useRepository } from "../context";
+import { ProductCategory } from "@pedido-express/core";
+import { useService } from "../context";
 
 export const useProductCategories = () => {
-  const repository = useRepository();
+  const service = useService();
   const [productCategories, setProductCategories] = useState<ProductCategory[]>();
   const [isLoadingProductCategories, setIsLoadingProductCategories] = useState<boolean>(false);
 
   useEffect(() => {
     setIsLoadingProductCategories(true);
-    repository.productCategory.findAll()
+    service.productCategory.findAll()
       .then(productCategories => setProductCategories(productCategories))
       .finally(() => setIsLoadingProductCategories(false));
   }, []);

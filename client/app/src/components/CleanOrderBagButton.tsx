@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { useOrderBag } from "../context";
 import { IconButton, Tooltip } from "react-native-paper";
+import { useOrderBag } from "../context";
 
 export type CleanOrderBagButtonProps = {
   navigation: any;
@@ -9,7 +9,7 @@ export const CleanOrderBagButton: FC<CleanOrderBagButtonProps> = ({
   navigation,
 }) => {
   const orderBag = useOrderBag();
-  const disabled = orderBag.order.orderProducts.length === 0;
+  const disabled = orderBag.orderProducts.length === 0;
 
   const onPress = () => {
     orderBag.clear();

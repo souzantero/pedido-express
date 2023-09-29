@@ -8,21 +8,16 @@ import {
   NavigationContainer,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Repository } from "@pedido-express/domain";
-import { OrderBagProvider, RepositoryContext } from "./src/context";
+import { OrderBagProvider, ServiceContextProvider } from "./src/context";
 import {
   OrderBagScreen,
   OrderCustomerNameScreen,
-  OrderTakeoutScreen,
+  OrderTakeAwayScreen,
   ProductCatalogScreen,
   ProductOrderScreen,
 } from "./src/screens";
 import { CleanOrderBagButton } from "./src/components";
-import { RepositoryProvider } from "./src/provider";
-import { Client } from "@pedido-express/sdk";
 
-const client = new Client("http://192.168.100.4:3000/api");
-const repository: Repository = new RepositoryProvider(client);
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -42,7 +37,7 @@ export default function App() {
 
   return (
     <PaperProvider theme={theme}>
-      <RepositoryContext.Provider value={repository}>
+      <ServiceContextProvider>
         <OrderBagProvider>
           <NavigationContainer theme={theme}>
             <Stack.Navigator initialRouteName="ProductCatalog">
@@ -71,14 +66,14 @@ export default function App() {
                 component={OrderBagScreen}
               />
               <Stack.Screen
-                name="OrderTakeout"
+                name="OrderTakeAway"
                 options={({ navigation }) => ({
                   title: "Retirada",
                   headerRight: () => (
                     <CleanOrderBagButton navigation={navigation} />
                   ),
                 })}
-                component={OrderTakeoutScreen}
+                component={OrderTakeAwayScreen}
               />
               <Stack.Screen
                 name="OrderCustomerName"
@@ -93,7 +88,7 @@ export default function App() {
             </Stack.Navigator>
           </NavigationContainer>
         </OrderBagProvider>
-      </RepositoryContext.Provider>
+      </ServiceContextProvider>
     </PaperProvider>
   );
 }

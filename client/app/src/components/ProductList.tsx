@@ -1,6 +1,6 @@
 import { FlatList, View } from "react-native";
 import { Card, Text } from "react-native-paper";
-import { Product } from "@pedido-express/domain";
+import { Product } from "@pedido-express/core";
 import { numberToCurrency } from "../utilities";
 
 export type ProductListProps = {
@@ -49,7 +49,7 @@ export const ProductItem = ({ product, onPress }: ProductItemProps) => {
     <Card onPress={onPress}>
       <Card.Cover
         style={{ borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }}
-        source={{ uri: product.displayImageSource }}
+        source={{ uri: product.imageSource }}
       />
       <Card.Title title={product.name} subtitle={product.description} />
       <Card.Content>

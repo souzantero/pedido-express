@@ -3,22 +3,22 @@ import { View } from "react-native";
 import { Button } from "react-native-paper";
 import { useOrderBag } from "../context";
 
-export type OrderTakeoutScreenProps = {
+export type OrderTakeAwayScreenProps = {
   navigation: any;
 };
 
-export const OrderTakeoutScreen: FC<OrderTakeoutScreenProps> = ({
+export const OrderTakeAwayScreen: FC<OrderTakeAwayScreenProps> = ({
   navigation,
 }) => {
   const orderBag = useOrderBag();
 
   const onEatHerePress = () => {
-    orderBag.setIsTakeout(false);
+    orderBag.setIsTakeAway(false);
     goToOrderCustomerName();
   };
 
   const onTakeoutPress = () => {
-    orderBag.setIsTakeout(true);
+    orderBag.setIsTakeAway(true);
     goToOrderCustomerName();
   };
 
