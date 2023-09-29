@@ -1,28 +1,15 @@
-import { ProductCategory, ProductCategoryRepository } from "@pedido-express/domain";
+import { FindProductCategories, ProductCategory, ProductCategorySerializer } from "@pedido-express/core";
+import { Provider } from "./provider";
 
-export class ProductCategoryProvider implements ProductCategoryRepository {
+export class ProductCategoryProvider implements FindProductCategories {
   constructor(
-    private readonly hostAddress: string
+    private readonly provider: Provider
   ) { }
 
   async findAll(): Promise<ProductCategory[]> {
-    const response = await fetch(`${this.hostAddress}/product-categories`)
-    const body = await response.json()
-
-    if (!response.ok) {
-      throw new Error(body.message)
-    }
-
-    return body.map(this.toEntity)
-  }
-
-  private toEntity(item: any): ProductCategory {
-    return {
-      id: item.id,
-      createdAt: new Date(item.createdAt),
-      updatedAt: new Date(item.updatedAt),
-      deletedAt: item.deletedAt && new Date(item.deletedAt),
-      name: item.name
-    }
+    return this.provider.get('/product-categories')
+      .then(productCategories => 
+        productCategories.map((productCategory: any) => new ProductCategorySerializer(productCategory).serialize())
+      );
   }
 }
