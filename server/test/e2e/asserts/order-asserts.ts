@@ -90,8 +90,8 @@ export const shouldCreateANewOrder = async ({ api = '' }) => {
       'Response body should have orderProducts with product with price',
     );
     assert(
-      orderProduct.product.displayImageSource,
-      'Response body should have orderProducts with product with displayImageSource',
+      orderProduct.product.imageSource,
+      'Response body should have orderProducts with product with imageSource',
     );
     assert(
       orderProduct.product.categoryId,

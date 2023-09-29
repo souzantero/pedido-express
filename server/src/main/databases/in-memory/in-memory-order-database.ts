@@ -1,4 +1,4 @@
-import { Order, OrderRepository } from '@pedido-express/domain';
+import { Order, OrderRepository } from '@pedido-express/core';
 
 export class InMemoryOrderDatabase implements OrderRepository {
   constructor(private readonly orders: Order[] = []) {}

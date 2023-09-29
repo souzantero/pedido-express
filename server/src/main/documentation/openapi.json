@@ -322,7 +322,7 @@
             "example": 5.5,
             "description": "Preço do produto"
           },
-          "displayImageSource": {
+          "imageSource": {
             "type": "string",
             "format": "url",
             "example": "https://www.cocacola.com.br/content/dam/GO/CokeZone/Common/Share/Products/COCA-COLA-ORIGINAL-350ML.png",

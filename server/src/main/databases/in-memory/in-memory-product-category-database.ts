@@ -1,7 +1,7 @@
 import {
   FindProductCategoriesRepository,
   ProductCategory,
-} from '@pedido-express/domain';
+} from '@pedido-express/core';
 
 export class InMemoryProductCategoryDatabase
   implements FindProductCategoriesRepository

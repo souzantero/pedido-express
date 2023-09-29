@@ -1,7 +1,7 @@
 import {
   ProductCategory,
   ProductCategoryRepository,
-} from '@pedido-express/domain';
+} from '@pedido-express/core';
 
 export class FindProductCategories {
   constructor(

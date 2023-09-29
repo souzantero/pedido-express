@@ -5,7 +5,7 @@ import {
   OrderRepository,
   OrderStatus,
   ProductRepository,
-} from '@pedido-express/domain';
+} from '@pedido-express/core';
 import { Identifier } from '../protocols';
 import { ProductsNotFoundError } from '../errors';
 

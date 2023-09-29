@@ -2,7 +2,7 @@ import { Server } from 'node:http';
 import express, { Router } from 'express';
 import swagger from 'swagger-ui-express';
 
-import { Repository } from '@pedido-express/domain';
+import { Repository } from '@pedido-express/core';
 import openapi from './documentation/openapi.json';
 import { orderRoutes, productRoutes, productCategoryRoutes } from './routes';
 

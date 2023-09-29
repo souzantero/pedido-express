@@ -1,4 +1,4 @@
-import { Order } from '@pedido-express/domain';
+import { Order } from '@pedido-express/core';
 import { CreateOrder, CreateOrderInput } from '../../application/use-cases';
 import {
   BadRequestError,

@@ -3,7 +3,7 @@ import {
   ProductCategoryRepository,
   ProductRepository,
   Repository,
-} from '@pedido-express/domain';
+} from '@pedido-express/core';
 import {
   InMemoryOrderDatabase,
   InMemoryProductDatabase,

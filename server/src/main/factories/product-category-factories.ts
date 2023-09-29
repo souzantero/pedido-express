@@ -1,4 +1,4 @@
-import { Repository } from '@pedido-express/domain';
+import { Repository } from '@pedido-express/core';
 import { FindProductCategories } from '../../core/application';
 import {
   CatchErrorHttpControllerDecorator,

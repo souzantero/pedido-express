@@ -1,4 +1,4 @@
-import { Product, ProductRepository } from '@pedido-express/domain';
+import { Product, ProductRepository } from '@pedido-express/core';
 
 export class FindProducts {
   constructor(private readonly productRepository: ProductRepository) {}

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Repository } from '@pedido-express/domain';
+import { Repository } from '@pedido-express/core';
 import { adaptRoute } from './route';
 import { makeFindManyProductsHttpController } from '../factories/product-factories';
 

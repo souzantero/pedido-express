@@ -1,4 +1,4 @@
-import { ProductCategory } from '@pedido-express/domain';
+import { ProductCategory } from '@pedido-express/core';
 import { FindProductCategories } from '../../application/use-cases';
 import { HttpResponse } from './http-controller';
 
