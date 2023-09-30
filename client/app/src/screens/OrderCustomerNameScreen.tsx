@@ -62,6 +62,7 @@ export const OrderCustomerNameScreen: FC<OrderCustomerNameScreenProps> = ({
           marginTop: 16,
         }}
         onPress={onOrderCustomerNameConfirmed}
+        disabled={!orderBag.customerName}
       >
         Confirmar
       </Button>
