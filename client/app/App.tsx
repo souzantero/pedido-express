@@ -18,6 +18,7 @@ import {
   ProductOrderScreen,
 } from "./src/screens";
 import { CleanOrderBagButton } from "./src/components";
+import { Navigation } from "./src/adapter";
 
 const Stack = createStackNavigator();
 
@@ -61,7 +62,9 @@ export default function App() {
                 options={({ navigation }) => ({
                   title: "Sacola",
                   headerRight: () => (
-                    <CleanOrderBagButton navigation={navigation} />
+                    <CleanOrderBagButton
+                      navigation={new Navigation(navigation)}
+                    />
                   ),
                 })}
                 component={OrderBagScreen}
@@ -71,7 +74,9 @@ export default function App() {
                 options={({ navigation }) => ({
                   title: "Retirada",
                   headerRight: () => (
-                    <CleanOrderBagButton navigation={navigation} />
+                    <CleanOrderBagButton
+                      navigation={new Navigation(navigation)}
+                    />
                   ),
                 })}
                 component={OrderTakeAwayScreen}
@@ -81,7 +86,9 @@ export default function App() {
                 options={({ navigation }) => ({
                   title: "Nome do Cliente",
                   headerRight: () => (
-                    <CleanOrderBagButton navigation={navigation} />
+                    <CleanOrderBagButton
+                      navigation={new Navigation(navigation)}
+                    />
                   ),
                 })}
                 component={OrderCustomerNameScreen}

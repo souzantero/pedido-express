@@ -1,4 +1,4 @@
-export class Navigator {
+export class Navigation {
   constructor(private readonly navigation: any) { }
 
   reset() {
@@ -12,7 +12,7 @@ export class Navigator {
     this.navigation.goBack();
   }
 
-  goToCreateOrder() {
-    this.navigation.navigate("CreateOrder");
+  navigate(screen: string) {
+    this.navigation.navigate(screen);
   }
 }

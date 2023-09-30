@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
 import { Button, Text, useTheme } from "react-native-paper";
-import { Navigator } from "../adapter";
+import { Navigation } from "../adapter";
 import { Centralized } from "../components";
 import { useCreateOrder } from "../hooks";
 import { View } from "react-native";
@@ -9,11 +9,9 @@ export type CreateOrderScreenProps = {
   navigation: any;
 };
 
-export const CreateOrderScreen: FC<CreateOrderScreenProps> = ({
-  navigation,
-}) => {
+export const CreateOrderScreen: FC<CreateOrderScreenProps> = (props) => {
   const theme = useTheme();
-  const navigator = new Navigator(navigation);
+  const navigation = new Navigation(props.navigation);
   const { createdOrder, isCreating, createOrder } = useCreateOrder();
 
   useEffect(() => {
@@ -51,7 +49,7 @@ export const CreateOrderScreen: FC<CreateOrderScreenProps> = ({
           <Button
             style={{ minWidth: 200 }}
             mode="outlined"
-            onPress={() => navigator.goBack()}
+            onPress={() => navigation.goBack()}
           >
             Voltar
           </Button>
@@ -75,7 +73,7 @@ export const CreateOrderScreen: FC<CreateOrderScreenProps> = ({
           {createdOrder?.code}
         </Text>
         <View style={{ height: 32 }} />
-        <Button mode="contained" onPress={() => navigator.reset()}>
+        <Button mode="contained" onPress={() => navigation.reset()}>
           Voltar para a tela inicial
         </Button>
       </Centralized>

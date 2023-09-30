@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { IconButton, Tooltip } from "react-native-paper";
 import { useOrderBag } from "../context";
-import { Navigator } from "../adapter";
+import { Navigation } from "../adapter";
 
 export type CleanOrderBagButtonProps = {
-  navigation: any;
+  navigation: Navigation;
 };
 export const CleanOrderBagButton: FC<CleanOrderBagButtonProps> = ({
   navigation,
@@ -14,13 +14,17 @@ export const CleanOrderBagButton: FC<CleanOrderBagButtonProps> = ({
 
   const onPress = () => {
     orderBag.clear();
-
-    new Navigator(navigation).reset();
+    navigation.reset();
   };
 
   return (
     <Tooltip title="Limpar Sacola">
-      <IconButton icon="close" selected disabled={disabled} onPress={onPress} />
+      <IconButton
+        icon="close"
+        selected
+        disabled={disabled}
+        onPress={!disabled ? onPress : undefined}
+      />
     </Tooltip>
   );
 };

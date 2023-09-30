@@ -14,6 +14,11 @@ export class App {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
+    // Simulate a slow network
+    app.use((_, res, next) => {
+      setTimeout(next, 1000)
+    });
+
     const router = Router();
     productRoutes(router, repository);
     productCategoryRoutes(router, repository);
