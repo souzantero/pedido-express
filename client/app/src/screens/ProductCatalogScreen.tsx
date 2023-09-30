@@ -37,7 +37,7 @@ export const ProductCatalogScreen: FC<ProductCatalogScreenProps> = ({
   if (!productCategories)
     return (
       <Centralized>
-        <Text variant="titleLarge">Produtos não encontrados</Text>
+        <Text variant="titleMedium">Produtos não encontrados</Text>
       </Centralized>
     );
 

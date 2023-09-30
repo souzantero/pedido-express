@@ -29,7 +29,7 @@ export const ProductOrderScreen: FC<ProductOrderScreenProps> = ({
   if (!product)
     return (
       <Centralized>
-        <Text>Produto não encontrado</Text>
+        <Text variant="titleMedium">Produto não encontrado</Text>
       </Centralized>
     );
 
