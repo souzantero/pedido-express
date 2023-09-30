@@ -10,6 +10,7 @@ import {
 import { createStackNavigator } from "@react-navigation/stack";
 import { OrderBagProvider, ServiceContextProvider } from "./src/context";
 import {
+  CreateOrderScreen,
   OrderBagScreen,
   OrderCustomerNameScreen,
   OrderTakeAwayScreen,
@@ -84,6 +85,14 @@ export default function App() {
                   ),
                 })}
                 component={OrderCustomerNameScreen}
+              />
+              <Stack.Screen
+                name="CreateOrder"
+                options={{
+                  title: "Pedido",
+                  headerLeft: () => null,
+                }}
+                component={CreateOrderScreen}
               />
             </Stack.Navigator>
           </NavigationContainer>

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { IconButton, Tooltip } from "react-native-paper";
 import { useOrderBag } from "../context";
+import { Navigator } from "../adapter";
 
 export type CleanOrderBagButtonProps = {
   navigation: any;
@@ -13,10 +14,8 @@ export const CleanOrderBagButton: FC<CleanOrderBagButtonProps> = ({
 
   const onPress = () => {
     orderBag.clear();
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "ProductCatalog" }],
-    });
+
+    new Navigator(navigation).reset();
   };
 
   return (

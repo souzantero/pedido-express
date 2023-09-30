@@ -8,13 +8,21 @@ import {
   useTheme,
 } from "react-native-paper";
 import { useOrderBag } from "../context";
+import { Navigator } from "../adapter";
 
-export const OrderCustomerNameScreen: FC = () => {
+export type OrderCustomerNameScreenProps = {
+  navigation: any;
+};
+
+export const OrderCustomerNameScreen: FC<OrderCustomerNameScreenProps> = ({
+  navigation,
+}) => {
+  const navigator = new Navigator(navigation);
   const theme = useTheme();
   const orderBag = useOrderBag();
 
   const onOrderCustomerNameConfirmed = () => {
-    // navigation.navigate("OrderTakeout");
+    navigator.goToCreateOrder();
   };
 
   return (
