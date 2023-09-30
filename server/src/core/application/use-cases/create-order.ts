@@ -34,7 +34,7 @@ export class CreateOrder {
     const createdAt = now;
     const updatedAt = now;
     const status = OrderStatus.Pending;
-    const code = Math.random().toString(36).substring(2, 15);
+    const code = Math.random().toString(36).substring(2, 15).toUpperCase();
     const orderProducts = new OrderProducts(
       input.orderProducts.map((product) => {
         const productFound = productsFound.find(
