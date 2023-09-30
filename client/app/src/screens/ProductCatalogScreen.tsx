@@ -1,10 +1,15 @@
 import { FC } from "react";
-import { Text } from "react-native";
+import { Text } from "react-native-paper";
 import { RouteProp } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Product } from "@pedido-express/core";
 import { useCategoryProducts, useProductCategories } from "../hooks";
-import { OrderBagBanner, ProductList } from "../components";
+import {
+  Centralized,
+  Loading,
+  OrderBagBanner,
+  ProductList,
+} from "../components";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -22,8 +27,20 @@ export const ProductCatalogScreen: FC<ProductCatalogScreenProps> = ({
     navigation.navigate("OrderBag");
   };
 
-  if (isLoadingProductCategories) return <Text>Loading...</Text>;
-  if (!productCategories) return <Text>Product categories not found</Text>;
+  if (isLoadingProductCategories)
+    return (
+      <Centralized>
+        <Loading />
+      </Centralized>
+    );
+
+  if (!productCategories)
+    return (
+      <Centralized>
+        <Text variant="titleLarge">Produtos não encontrados</Text>
+      </Centralized>
+    );
+
   return (
     <OrderBagBanner onOrderBagPress={onOrderBagPress}>
       <Tab.Navigator

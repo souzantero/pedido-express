@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Text } from "react-native-paper";
-import { ProductOrder } from "../components";
+import { Centralized, Loading, ProductOrder } from "../components";
 import { useProductById } from "../hooks";
 
 interface ProductOrderScreenProps {
@@ -19,8 +19,20 @@ export const ProductOrderScreen: FC<ProductOrderScreenProps> = ({
     navigation.goBack();
   };
 
-  if (isLoadingProduct) return <Text>Loading...</Text>;
-  if (!product) return <Text>Product not found</Text>;
+  if (isLoadingProduct)
+    return (
+      <Centralized>
+        <Loading />
+      </Centralized>
+    );
+
+  if (!product)
+    return (
+      <Centralized>
+        <Text>Produto não encontrado</Text>
+      </Centralized>
+    );
+
   return (
     <ProductOrder
       product={product}

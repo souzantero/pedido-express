@@ -1,4 +1,6 @@
+export * from './Centralized'
 export * from './CleanOrderBagButton'
+export * from './Loading'
 export * from './OrderBagBanner'
 export * from './ProductOrder'
 export * from './ProductList'
