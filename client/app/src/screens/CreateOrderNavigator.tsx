@@ -9,8 +9,8 @@ import {
   OrderTakeAwayScreen,
   ProductCatalogScreen,
   ProductOrderScreen,
-} from "../screens";
-import { CleanOrderBagButton } from "./CleanOrderBagButton";
+} from "./";
+import { CleanOrderBagButton } from "../components/CleanOrderBagButton";
 import { Navigation } from "../adapter";
 
 const Stack = createStackNavigator();
