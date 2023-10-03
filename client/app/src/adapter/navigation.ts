@@ -1,10 +1,10 @@
 export class Navigation {
   constructor(private readonly navigation: any) { }
 
-  reset() {
+  clean(to: string) {
     this.navigation.reset({
       index: 0,
-      routes: [{ name: "ProductCatalog" }],
+      routes: [{ name: to }],
     });
   }
 

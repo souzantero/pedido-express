@@ -14,7 +14,7 @@ export const CleanOrderBagButton: FC<CleanOrderBagButtonProps> = ({
 
   const onPress = () => {
     orderBag.clear();
-    navigation.reset();
+    navigation.clean("ProductCatalog");
   };
 
   return (
