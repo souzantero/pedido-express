@@ -1,4 +1,4 @@
-import { CreateOrder, FindProductCategories, FindProducts } from "@pedido-express/core";
+import { CreateOrder, FindOrders, FindProductCategories, FindProducts } from "@pedido-express/core";
 
 export interface Service {
   order: OrderService
@@ -6,6 +6,6 @@ export interface Service {
   productCategory: ProductCategoryService
 }
 
-export type OrderService = CreateOrder
+export type OrderService = CreateOrder & FindOrders
 export type ProductService = FindProducts
 export type ProductCategoryService = FindProductCategories

@@ -10,4 +10,12 @@ export class OrderServiceProvider implements OrderService {
   create(input: CreateOrderInput): Promise<Order> {
     return this.client.order.create(input);
   }
+
+  findAllPendingOrders(): Promise<Order[]> {
+    return this.client.order.findAllPendingOrders();
+  }
+  
+  findAllPreparingOrders(): Promise<Order[]> {
+    return this.client.order.findAllPreparingOrders();
+  }
 }
