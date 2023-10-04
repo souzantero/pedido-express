@@ -16,7 +16,7 @@ export class App {
 
     // Simulate a slow network
     app.use((_, res, next) => {
-      setTimeout(next, 1000)
+      setTimeout(next, 1000);
     });
 
     const router = Router();
