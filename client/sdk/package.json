@@ -1,6 +1,6 @@
 {
   "name": "@pedido-express/sdk",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,6 +17,6 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@pedido-express/core": "^0.0.1"
+    "@pedido-express/core": "^0.0.2"
   }
 }
