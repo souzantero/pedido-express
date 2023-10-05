@@ -1,4 +1,4 @@
-import { Order, OrderStatus } from "../entities";
+import { Order } from "../entities";
 
 export interface OrderRepository extends CreateOrderRepository, FindOrdersRepository { }
 export interface CreateOrderRepository {
@@ -6,5 +6,5 @@ export interface CreateOrderRepository {
 }
 
 export interface FindOrdersRepository {
-  findAllByStatus(status: OrderStatus): Promise<Order[]>;
+  findDayOrders(): Promise<Order[]>;
 }
