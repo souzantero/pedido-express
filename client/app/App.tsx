@@ -26,7 +26,7 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
       <ServiceContextProvider>
-        <CreateOrderNavigator theme={theme} />
+        {/* <CreateOrderNavigator theme={theme} /> */}
         <OrderListNavigator theme={theme} />
       </ServiceContextProvider>
     </PaperProvider>

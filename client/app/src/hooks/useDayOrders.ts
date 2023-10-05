@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Order } from "@pedido-express/core"
 import { useService } from "../context"
 
-export const usePendingOrders = () => {
+export const useDayOrders = () => {
   const service = useService()
   const [orders, setOrders] = useState<Order[]>()
   const [isLoadingOrders, setIsLoadingOrders] = useState(false)
@@ -11,7 +11,7 @@ export const usePendingOrders = () => {
     setIsLoadingOrders(true)
     service
       .order
-      .findAllPendingOrders()
+      .findDayOrders()
       .then(setOrders)
       .finally(() => setIsLoadingOrders(false))
   }, [])

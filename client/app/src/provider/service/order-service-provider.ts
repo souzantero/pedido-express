@@ -11,11 +11,7 @@ export class OrderServiceProvider implements OrderService {
     return this.client.order.create(input);
   }
 
-  findAllPendingOrders(): Promise<Order[]> {
-    return this.client.order.findAllPendingOrders();
-  }
-  
-  findAllPreparingOrders(): Promise<Order[]> {
-    return this.client.order.findAllPreparingOrders();
+  findDayOrders(): Promise<Order[]> {
+    return this.client.order.findDayOrders();
   }
 }

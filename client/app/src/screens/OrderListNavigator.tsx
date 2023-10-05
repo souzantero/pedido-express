@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { NavigationContainer, Theme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { OrderListScreen } from "./OrderListScreen";
+import { OrderListTabNavigator } from "./OrderListScreen";
 
 const Stack = createStackNavigator();
 
@@ -10,7 +10,6 @@ export type OrderListNavigatorProps = {
 };
 
 export const OrderListNavigator: FC<OrderListNavigatorProps> = ({ theme }) => {
-  
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator initialRouteName="OrderList">
@@ -19,7 +18,7 @@ export const OrderListNavigator: FC<OrderListNavigatorProps> = ({ theme }) => {
           options={{
             title: "Pedidos",
           }}
-          component={OrderListScreen}
+          component={OrderListTabNavigator}
         />
       </Stack.Navigator>
     </NavigationContainer>
