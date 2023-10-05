@@ -1,7 +1,7 @@
-import { CreateOrder, CreateOrderInput, FindOrders, Order, OrderSerializer } from "@pedido-express/core";
+import { CreateOrder, CreateOrderInput, FindOrdersRepository, Order, OrderSerializer } from "@pedido-express/core";
 import { Provider } from "./provider";
 
-export class OrderProvider implements FindOrders, CreateOrder {
+export class OrderProvider implements FindOrdersRepository, CreateOrder {
   constructor(
     private readonly provider: Provider
   ) { }
@@ -11,12 +11,8 @@ export class OrderProvider implements FindOrders, CreateOrder {
       .then((order: any) => new OrderSerializer(order).serialize());
   }
 
-  findAllPendingOrders(): Promise<Order[]> {
-    return this.provider.get('/orders/pending')
-      .then((orders: any[]) => orders.map((order) => new OrderSerializer(order).serialize()));
-  }
-  findAllPreparingOrders(): Promise<Order[]> {
-    return this.provider.get('/orders/preparing')
+  findDayOrders(): Promise<Order[]> {
+    return this.provider.get('/orders/of-the-day')
       .then((orders: any[]) => orders.map((order) => new OrderSerializer(order).serialize()));
   }
 }
