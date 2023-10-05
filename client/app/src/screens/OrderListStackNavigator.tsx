@@ -5,11 +5,13 @@ import { OrderListTabNavigator } from "./OrderListScreen";
 
 const Stack = createStackNavigator();
 
-export type OrderListNavigatorProps = {
+export type OrderListStackNavigatorProps = {
   theme: Theme;
 };
 
-export const OrderListNavigator: FC<OrderListNavigatorProps> = ({ theme }) => {
+export const OrderListStackNavigator: FC<OrderListStackNavigatorProps> = ({
+  theme,
+}) => {
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator initialRouteName="OrderList">

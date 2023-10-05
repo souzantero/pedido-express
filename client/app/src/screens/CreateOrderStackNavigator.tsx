@@ -9,17 +9,17 @@ import {
   OrderTakeAwayScreen,
   ProductCatalogScreen,
   ProductOrderScreen,
-} from "./";
+} from ".";
 import { CleanOrderBagButton } from "../components/CleanOrderBagButton";
 import { Navigation } from "../adapter";
 
 const Stack = createStackNavigator();
 
-export type CreateOrderNavigatorProps = {
+export type CreateOrderStackNavigatorProps = {
   theme: Theme;
 };
 
-export const CreateOrderNavigator: FC<CreateOrderNavigatorProps> = ({
+export const CreateOrderStackNavigator: FC<CreateOrderStackNavigatorProps> = ({
   theme,
 }) => {
   return (

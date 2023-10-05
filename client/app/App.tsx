@@ -5,8 +5,8 @@ import {
 } from "react-native-paper";
 import { DefaultTheme as NavigationDefaultTheme } from "@react-navigation/native";
 import { ServiceContextProvider } from "./src/context";
-import { CreateOrderNavigator } from "./src/screens/CreateOrderNavigator";
-import { OrderListNavigator } from "./src/screens/OrderListNavigator";
+import { CreateOrderStackNavigator } from "./src/screens/CreateOrderStackNavigator";
+import { OrderListStackNavigator } from "./src/screens/OrderListStackNavigator";
 
 export default function App() {
   const { LightTheme } = adaptNavigationTheme({
@@ -26,8 +26,8 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
       <ServiceContextProvider>
-        {/* <CreateOrderNavigator theme={theme} /> */}
-        <OrderListNavigator theme={theme} />
+        <CreateOrderStackNavigator theme={theme} />
+        <OrderListStackNavigator theme={theme} />
       </ServiceContextProvider>
     </PaperProvider>
   );
