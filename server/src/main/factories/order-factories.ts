@@ -1,9 +1,9 @@
 import { Repository } from '@pedido-express/core';
-import { CreateOrder, Orders } from '../../core/application';
+import { CreateOrder } from '../../core/application';
 import {
   CatchErrorHttpControllerDecorator,
   CreateOrderHttpController,
-  FindPendingOrdersHttpController,
+  FindDayOrdersHttpController,
 } from '../../core/presentation';
 import { UuidAdapter } from '../adapters';
 
@@ -20,18 +20,8 @@ export const makeCreateOrderHttpController = (repository: Repository) => {
   );
 };
 
-export const makeFindPendingOrdersHttpController = (repository: Repository) => {
-  const orders = new Orders(repository.order);
+export const makeFindDayOrdersHttpController = (repository: Repository) => {
   return new CatchErrorHttpControllerDecorator(
-    new FindPendingOrdersHttpController(orders),
-  );
-};
-
-export const makeFindPreparingOrdersHttpController = (
-  repository: Repository,
-) => {
-  const orders = new Orders(repository.order);
-  return new CatchErrorHttpControllerDecorator(
-    new FindPendingOrdersHttpController(orders),
+    new FindDayOrdersHttpController(repository.order),
   );
 };
