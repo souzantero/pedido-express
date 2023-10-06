@@ -73,7 +73,7 @@ export const CreateOrderScreen: FC<CreateOrderScreenProps> = (props) => {
           {createdOrder?.code}
         </Text>
         <View style={{ height: 32 }} />
-        <Button mode="contained" onPress={() => navigation.clean("ProductCatalog")}>
+        <Button mode="contained" onPress={() => navigation.clean("StartOrder")}>
           Voltar para a tela inicial
         </Button>
       </Centralized>
