@@ -10,6 +10,14 @@ import { Centralized, Loading } from "../components";
 const Tab = createMaterialTopTabNavigator();
 
 export const OrderListTabNavigator: FC = () => {
+  const orderStatusDisplay = {
+    [OrderStatus.Pending]: "Pendentes",
+    [OrderStatus.Preparing]: "Preparando",
+    [OrderStatus.Ready]: "Prontos",
+    [OrderStatus.Delivered]: "Entregues",
+    [OrderStatus.Canceled]: "Cancelados",
+  };
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -18,7 +26,7 @@ export const OrderListTabNavigator: FC = () => {
     >
       {Object.values(OrderStatus).map((orderStatus) => (
         <Tab.Screen
-          name={orderStatus}
+          name={orderStatusDisplay[orderStatus]}
           key={orderStatus}
           initialParams={{ orderStatus }}
           component={OrderListScreen}
