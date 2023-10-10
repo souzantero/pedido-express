@@ -1,40 +1,9 @@
 import { FC, useMemo } from "react";
 import { FlatList, View } from "react-native";
 import { Text } from "react-native-paper";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { RouteProp } from "@react-navigation/native";
-import { OrderStatus } from "@pedido-express/core";
 import { useDayOrders } from "../hooks";
 import { Centralized, Loading } from "../components";
-
-const Tab = createMaterialTopTabNavigator();
-
-export const OrderListTabNavigator: FC = () => {
-  const orderStatusDisplay = {
-    [OrderStatus.Pending]: "Pendentes",
-    [OrderStatus.Preparing]: "Preparando",
-    [OrderStatus.Ready]: "Prontos",
-    [OrderStatus.Delivered]: "Entregues",
-    [OrderStatus.Canceled]: "Cancelados",
-  };
-
-  return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarScrollEnabled: true,
-      }}
-    >
-      {Object.values(OrderStatus).map((orderStatus) => (
-        <Tab.Screen
-          name={orderStatusDisplay[orderStatus]}
-          key={orderStatus}
-          initialParams={{ orderStatus }}
-          component={OrderListScreen}
-        />
-      ))}
-    </Tab.Navigator>
-  );
-};
 
 export type OrderListScreenProps = {
   route: RouteProp<any, any>;

@@ -10,8 +10,8 @@ import {
 } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { ServiceContextProvider } from "./src/context";
-import { CreateOrderStackNavigator } from "./src/screens/CreateOrderStackNavigator";
-import { OrderListStackNavigator } from "./src/screens/OrderListStackNavigator";
+import { OrderBoardStackNavigator } from "./src/screens/OrderBoardStackNavigator";
+import { OrderFlowStackNavigator } from "./src/screens/OrderFlowStackNavigator";
 
 const Drawer = createDrawerNavigator();
 
@@ -38,17 +38,17 @@ export default function App() {
             screenOptions={{
               headerShown: false,
             }}
-            initialRouteName="CreateOrderStackNavigator"
+            initialRouteName="OrderFlowStackNavigator"
           >
             <Drawer.Screen
-              name="CreateOrderStackNavigator"
-              options={{ title: "Criar Pedido" }}
-              component={CreateOrderStackNavigator}
+              name="OrderFlowStackNavigator"
+              options={{ title: "Atendimento" }}
+              component={OrderFlowStackNavigator}
             />
             <Drawer.Screen
-              name="OrderListStackNavigator"
-              options={{ title: "Lista de Pedidos" }}
-              component={OrderListStackNavigator}
+              name="OrderBoardStackNavigator"
+              options={{ title: "Cozinha" }}
+              component={OrderBoardStackNavigator}
             />
           </Drawer.Navigator>
         </NavigationContainer>

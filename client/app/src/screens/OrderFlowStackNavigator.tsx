@@ -15,7 +15,7 @@ import { Navigation } from "../adapter";
 
 const Stack = createStackNavigator();
 
-export const CreateOrderStackNavigator: FC = () => {
+export const OrderFlowStackNavigator: FC = () => {
   return (
     <OrderBagProvider>
       <Stack.Navigator initialRouteName="StartOrder">
