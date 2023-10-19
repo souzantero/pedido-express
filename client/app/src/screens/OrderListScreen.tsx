@@ -1,8 +1,8 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { FlatList, View } from "react-native";
 import { Text } from "react-native-paper";
 import { RouteProp } from "@react-navigation/native";
-import { useDayOrders } from "../hooks";
+import { useDayOrders } from "../context";
 import { Centralized, Loading } from "../components";
 
 export type OrderListScreenProps = {
@@ -13,10 +13,7 @@ export type OrderListScreenProps = {
 export const OrderListScreen: FC<OrderListScreenProps> = (props) => {
   const orderStatus = props.route.params?.orderStatus;
   const { orders, isLoadingOrders } = useDayOrders();
-  const ordersByStatus = useMemo(
-    () => orders?.filter((order) => order.status === orderStatus),
-    [orders, orderStatus]
-  );
+  const ordersByStatus = orders?.filter((order) => order.status === orderStatus)
 
   if (isLoadingOrders)
     return (

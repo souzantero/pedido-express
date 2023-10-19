@@ -3,21 +3,26 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { OrderStatus } from "@pedido-express/core";
 import { OrderListScreen } from "./OrderListScreen";
+import { DayOrdersProvider } from "../context";
+import { RefreshDayOrdersButton } from "../components";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
 export const OrderBoardStackNavigator: FC = () => {
   return (
-    <Stack.Navigator initialRouteName="OrderBoard">
-      <Stack.Screen
-        name="OrderBoard"
-        options={{
-          title: "Pedidos",
-        }}
-        component={OrderBoard}
-      />
-    </Stack.Navigator>
+    <DayOrdersProvider>
+      <Stack.Navigator initialRouteName="OrderBoard">
+        <Stack.Screen
+          name="OrderBoard"
+          options={{
+            title: "Pedidos do dia",
+            headerRight: () => <RefreshDayOrdersButton />,
+          }}
+          component={OrderBoard}
+        />
+      </Stack.Navigator>
+    </DayOrdersProvider>
   );
 };
 

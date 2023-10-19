@@ -66,6 +66,10 @@ export class InMemoryOrderService implements OrderService {
   }
 
   findDayOrders(): Promise<Order[]> {
-    return Promise.resolve(this.orders);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(this.orders);
+      }, 1000);
+    });
   }
 }
