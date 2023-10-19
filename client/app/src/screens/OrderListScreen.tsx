@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { FlatList, View } from "react-native";
-import { Text } from "react-native-paper";
+import { Card, Text } from "react-native-paper";
 import { RouteProp } from "@react-navigation/native";
 import { useDayOrders } from "../context";
-import { Centralized, Loading } from "../components";
+import { Centralized, ListItem, Loading } from "../components";
 
 export type OrderListScreenProps = {
   route: RouteProp<any, any>;
@@ -13,7 +13,9 @@ export type OrderListScreenProps = {
 export const OrderListScreen: FC<OrderListScreenProps> = (props) => {
   const orderStatus = props.route.params?.orderStatus;
   const { orders, isLoadingOrders } = useDayOrders();
-  const ordersByStatus = orders?.filter((order) => order.status === orderStatus)
+  const ordersByStatus = orders?.filter(
+    (order) => order.status === orderStatus
+  );
 
   if (isLoadingOrders)
     return (
@@ -33,7 +35,18 @@ export const OrderListScreen: FC<OrderListScreenProps> = (props) => {
     <View style={{ flex: 1 }}>
       <FlatList
         data={ordersByStatus ?? []}
-        renderItem={({ item }) => <Text>{item.code}</Text>}
+        renderItem={({ item }) => (
+          <ListItem index={0} length={ordersByStatus?.length ?? 0}>
+            <Card>
+              <Card.Title
+                title={item.code}
+                subtitle={item.orderProducts
+                  .map((orderProduct) => orderProduct.product.name)
+                  .join(", ")}
+              />
+            </Card>
+          </ListItem>
+        )}
       />
     </View>
   );

@@ -2,6 +2,7 @@ import { FlatList, View } from "react-native";
 import { Card, Text } from "react-native-paper";
 import { Product } from "@pedido-express/core";
 import { numberToCurrency } from "../utilities";
+import { ListItem } from "./ListItem";
 
 export type ProductListProps = {
   products: Product[];
@@ -14,24 +15,15 @@ export const ProductList = ({ products, onProductPress }: ProductListProps) => {
       <FlatList
         data={products}
         renderItem={({ item, index }) => {
-          const margin = 12;
-          const marginBottom = index === products.length - 1 ? margin : 0;
           return (
-            <View
-              style={{
-                marginBottom,
-                marginTop: margin,
-                marginLeft: margin,
-                marginRight: margin,
-              }}
-            >
+            <ListItem index={index} length={products.length}>
               <ProductItem
                 product={item}
                 onPress={() => {
                   if (onProductPress) onProductPress(item);
                 }}
               />
-            </View>
+            </ListItem>
           );
         }}
       />
