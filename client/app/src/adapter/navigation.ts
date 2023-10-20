@@ -12,7 +12,7 @@ export class Navigation {
     this.navigation.goBack();
   }
 
-  navigate(screen: string) {
-    this.navigation.navigate(screen);
+  navigate(screen: string, params?: any) {
+    this.navigation.navigate(screen, params);
   }
 }

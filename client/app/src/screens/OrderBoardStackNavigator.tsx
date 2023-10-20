@@ -5,6 +5,7 @@ import { OrderStatus } from "@pedido-express/core";
 import { OrderListScreen } from "./OrderListScreen";
 import { DayOrdersProvider } from "../context";
 import { RefreshDayOrdersButton } from "../components";
+import { OrderScreen } from "./OrderScreen";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -20,6 +21,13 @@ export const OrderBoardStackNavigator: FC = () => {
             headerRight: () => <RefreshDayOrdersButton />,
           }}
           component={OrderBoard}
+        />
+        <Stack.Screen
+          name="Order"
+          options={{
+            title: "Pedido",
+          }}
+          component={OrderScreen}
         />
       </Stack.Navigator>
     </DayOrdersProvider>
