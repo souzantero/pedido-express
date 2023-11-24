@@ -6,6 +6,7 @@ import { OrderListScreen } from "./OrderListScreen";
 import { DayOrdersProvider } from "../context";
 import { RefreshDayOrdersButton } from "../components";
 import { OrderScreen } from "./OrderScreen";
+import { getOrderStatusDisplay } from "../utilities";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -35,14 +36,6 @@ export const OrderBoardStackNavigator: FC = () => {
 };
 
 export const OrderBoard: FC = () => {
-  const orderStatusDisplay = {
-    [OrderStatus.Pending]: "Pendentes",
-    [OrderStatus.Preparing]: "Preparando",
-    [OrderStatus.Ready]: "Prontos",
-    [OrderStatus.Delivered]: "Entregues",
-    [OrderStatus.Canceled]: "Cancelados",
-  };
-
   return (
     <Tab.Navigator
       screenOptions={{
@@ -51,7 +44,7 @@ export const OrderBoard: FC = () => {
     >
       {Object.values(OrderStatus).map((orderStatus) => (
         <Tab.Screen
-          name={orderStatusDisplay[orderStatus]}
+          name={getOrderStatusDisplay(orderStatus)}
           key={orderStatus}
           initialParams={{ orderStatus }}
           component={OrderListScreen}
