@@ -11,6 +11,10 @@ export class Order {
     public readonly isTakeAway: boolean = false,
     public readonly customerName: string = '',
   ) { }
+
+  public get canBeCanceled(): boolean {
+    return this.status === OrderStatus.Pending || this.status === OrderStatus.Preparing;
+  }
 }
 
 export enum OrderStatus {
