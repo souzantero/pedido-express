@@ -1,8 +1,8 @@
 import { CreateOrderInput, Order, OrderStatus } from "@pedido-express/core";
 import { Client } from "@pedido-express/sdk";
-import { OrderService } from "../../service";
+import { OrderService } from "..";
 
-export class OrderServiceProvider implements OrderService {
+export class SDKOrderService implements OrderService {
   constructor(
     private readonly client: Client
   ) { }

@@ -1,13 +1,13 @@
 import { FC, PropsWithChildren, createContext, useContext } from "react";
 import { Product, ProductCategory } from "@pedido-express/core";
 import { Client } from "@pedido-express/sdk";
-import { ServiceProvider } from "../provider";
 import {
   InMemoryOrderService,
   InMemoryProductCategoryService,
   InMemoryProductService,
   InMemoryService,
-  Service,
+  SDKService,
+  Service
 } from "../service";
 
 const productCategories: ProductCategory[] = [
@@ -59,15 +59,15 @@ const products: Product[] = [
   ),
 ];
 
-const service: Service = new InMemoryService(
-  new InMemoryProductService(products),
-  new InMemoryProductCategoryService(productCategories),
-  new InMemoryOrderService([], products)
-);
-
-// const service = new ServiceProvider(
-//   new Client("http://192.168.100.4:3000/api")
+// const service: Service = new InMemoryService(
+//   new InMemoryProductService(products),
+//   new InMemoryProductCategoryService(productCategories),
+//   new InMemoryOrderService([], products)
 // );
+
+const service = new SDKService (
+  new Client("http://192.168.100.4:3000/api")
+);
 
 const ServiceContext = createContext(service);
 
