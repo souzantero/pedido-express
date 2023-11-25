@@ -35,6 +35,33 @@ export class InMemoryOrderService implements OrderService {
     private readonly products: Product[] = [],
   ) { }
 
+  async changeStatus(orderId: string, status: OrderStatus): Promise<Order> {
+    const order = await this.findById(orderId);
+    const newOrder = new Order(
+      order.id,
+      order.createdAt,
+      new Date(),
+      order.code,
+      status,
+      order.orderProducts,
+      order.isTakeAway,
+      order.customerName,
+    );
+
+    this.orders.splice(this.orders.indexOf(order), 1, newOrder);
+
+    return newOrder;
+  }
+
+  findById(orderId: string): Promise<Order> {
+    const order = this.orders.find(order => order.id === orderId);
+    if (!order) {
+      throw new Error(`Order ${orderId} not found`);
+    }
+
+    return Promise.resolve(order);
+  }
+
   create(input: CreateOrderInput): Promise<Order> {
     const id = Math.random().toString();
     const createdAt = new Date();

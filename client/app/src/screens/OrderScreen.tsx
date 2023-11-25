@@ -111,9 +111,30 @@ export const OrderScreen: FC<OrderScreenProps> = ({ route }) => {
           padding: 16,
         }}
       >
-        <Button mode="contained" onPress={() => {}}>
-          Iniciar preparo
-        </Button>
+        {order.canBePrepared && (
+          <Button
+            mode="contained"
+            onPress={() => changeOrderStatus(OrderStatus.Preparing)}
+          >
+            Iniciar preparo
+          </Button>
+        )}
+        {order.canBeReady && (
+          <Button
+            mode="contained"
+            onPress={() => changeOrderStatus(OrderStatus.Ready)}
+          >
+            Pedido pronto
+          </Button>
+        )}
+        {order.canBeDelivered && (
+          <Button
+            mode="contained"
+            onPress={() => changeOrderStatus(OrderStatus.Delivered)}
+          >
+            Pedido entregue
+          </Button>
+        )}
         <View style={{ height: 16 }} />
         {order.canBeCanceled && (
           <Button
