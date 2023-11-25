@@ -17,6 +17,15 @@ export class Provider {
       .then(this.handleResponse);
   }
 
+  put(path: string, body: any): Promise<any> {
+    return fetch(`${this.hostAddress}${path}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    })
+      .then(this.handleResponse);
+  }
+
   private async handleResponse(response: Response) {
     const contentType = response.headers.get('content-type')
     if (!contentType || !contentType.includes('application/json')) {

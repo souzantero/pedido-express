@@ -1,12 +1,13 @@
 {
   "name": "@pedido-express/sdk",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [],
   "author": "Antero, Felipe <souzantero@gmail.com>",
@@ -17,6 +18,6 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@pedido-express/core": "^0.0.3"
+    "@pedido-express/core": "^0.0.5"
   }
 }
