@@ -8,3 +8,7 @@ export interface CreateOrderRepository {
 export interface FindOrdersRepository {
   findDayOrders(): Promise<Order[]>;
 }
+
+export interface FindOrderRepository {
+  findById(orderId: string): Promise<Order>;
+}

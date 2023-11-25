@@ -1,8 +1,9 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { Image, ScrollView, View } from "react-native";
 import { Button, Divider, Text, useTheme } from "react-native-paper";
-import { useDayOrders } from "../context";
+import { OrderStatus } from "@pedido-express/core";
 import { getOrderStatusDisplay } from "../utilities";
+import { useOrder } from "../hooks";
 
 export type OrderScreenProps = {
   route: any;
@@ -11,10 +12,7 @@ export type OrderScreenProps = {
 export const OrderScreen: FC<OrderScreenProps> = ({ route }) => {
   const theme = useTheme();
   const { orderId } = route.params;
-  const { orders } = useDayOrders();
-  const order = useMemo(() => {
-    return orders?.find((order) => order.id === orderId);
-  }, [orders, orderId]);
+  const { order, changeOrderStatus, isChangingOrderStatus } = useOrder(orderId);
 
   if (!order) {
     return null;
@@ -117,7 +115,15 @@ export const OrderScreen: FC<OrderScreenProps> = ({ route }) => {
           Iniciar preparo
         </Button>
         <View style={{ height: 16 }} />
-        <Button onPress={() => {}}>Cancelar pedido</Button>
+        {order.canBeCanceled && (
+          <Button
+            onPress={() => changeOrderStatus(OrderStatus.Canceled)}
+            loading={isChangingOrderStatus}
+            disabled={!order.canBeCanceled}
+          >
+            Cancelar pedido
+          </Button>
+        )}
       </View>
     </ScrollView>
   );

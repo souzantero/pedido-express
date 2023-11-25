@@ -15,6 +15,18 @@ export class Order {
   public get canBeCanceled(): boolean {
     return this.status === OrderStatus.Pending || this.status === OrderStatus.Preparing;
   }
+
+  public get canBePrepared(): boolean {
+    return this.status === OrderStatus.Pending;
+  }
+
+  public get canBeReady(): boolean {
+    return this.status === OrderStatus.Preparing;
+  }
+
+  public get canBeDelivered(): boolean {
+    return this.status === OrderStatus.Ready;
+  }
 }
 
 export enum OrderStatus {
