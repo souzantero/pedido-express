@@ -5,8 +5,9 @@ export interface CreateOrderRepository {
   create(order: Order): Promise<Order>;
 }
 
+export type UpdateOrderData = Partial<Pick<Order, 'status'>>
 export interface UpdateOrderRepository {
-  updateById(orderId: string, data: Omit<Order, 'id'>): Promise<Order> // IN PROGRESS
+  updateById(orderId: string, data: UpdateOrderData): Promise<Order>
 }
 
 export interface FindOrdersRepository {
