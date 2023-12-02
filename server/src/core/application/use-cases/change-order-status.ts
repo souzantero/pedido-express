@@ -1,4 +1,4 @@
-import { FindOrderRepository, Order, OrderProducts, OrderStatus, UpdateOrderRepository, ChangeOrderStatus as UseCase } from '@pedido-express/core'
+import { FindOrderRepository, Order, OrderStatus, UpdateOrderRepository, ChangeOrderStatus as UseCase } from '@pedido-express/core'
 
 export class ChangeOrderStatus implements UseCase {
   constructor(
@@ -6,13 +6,23 @@ export class ChangeOrderStatus implements UseCase {
     private readonly updateOrderRepository: UpdateOrderRepository
   ) { }
 
+  /**
+   * @throws {OrderNotFound} - If order is not found
+   * @throws {OrderIsAlreadyDelivered} - If order is already delivered
+   * @throws {OrderIsAlreadyCanceled} - If order is already canceled
+   * @throws {OrderStatusIsTheSame} - If order status is the same
+   * @returns {Promise<Order>} - Order updated
+   * @memberof ChangeOrderStatus
+   * @description Change order status
+   * @param {string} orderId - Order id
+   * @param {OrderStatus} status - Order status
+   **/
   async changeStatus(orderId: string, status: OrderStatus): Promise<Order> {
     const order = await this.findOrderRepository.findById(orderId)
     if (!order) throw new OrderNotFound()
     if (order.status === OrderStatus.Delivered) throw new OrderIsAlreadyDelivered()
     if (order.status === OrderStatus.Canceled) throw new OrderIsAlreadyCanceled()
     if (order.status === status) throw new OrderStatusIsTheSame()
-
     return this.updateOrderRepository.updateById(orderId, { status })
   }
 }

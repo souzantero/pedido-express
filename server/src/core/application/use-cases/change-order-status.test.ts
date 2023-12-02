@@ -22,7 +22,7 @@ const makeUpdateOrderRepository = () => ({
 } as UpdateOrderRepository)
 
 
-describe("Change order status", () => {
+describe("ChangeOrderStatus", () => {
   it("should change order status using repository", async () => {
     // Arrange
     const orderId = randomString();
