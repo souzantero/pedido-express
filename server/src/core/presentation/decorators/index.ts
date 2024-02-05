@@ -1,1 +1,1 @@
-export * from './catch-error-http-controller-decorator';
+export * from './log-http-controller-decorator';

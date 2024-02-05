@@ -4,6 +4,7 @@ import {
   HttpController,
   HttpRequest,
   HttpResponse,
+  InternalServerError,
   NotFoundError,
 } from './http-controller';
 import {
@@ -21,11 +22,11 @@ export class ChangeOrderStatusHttpController implements HttpController<Order> {
     const { status } = request.body;
 
     if (!status) {
-      throw new BadRequestError('Missing status');
+      return HttpResponse.error(new BadRequestError('Missing status'));
     }
 
     if (!Object.values(OrderStatus).includes(status)) {
-      throw new BadRequestError('Invalid status');
+      return HttpResponse.error(new BadRequestError('Invalid status'));
     }
 
     try {
@@ -33,14 +34,14 @@ export class ChangeOrderStatusHttpController implements HttpController<Order> {
       return HttpResponse.ok(order);
     } catch (error) {
       if (error instanceof OrderNotFound)
-        throw new NotFoundError(error.message);
+        return HttpResponse.error(new NotFoundError(error.message));
       else if (error instanceof OrderIsAlreadyDelivered)
-        throw new BadRequestError(error.message);
+        return HttpResponse.error(new BadRequestError(error.message));
       else if (error instanceof OrderIsAlreadyCanceled)
-        throw new BadRequestError(error.message);
+        return HttpResponse.error(new BadRequestError(error.message));
       else if (error instanceof OrderStatusIsTheSame)
-        throw new BadRequestError(error.message);
-      else throw error;
+        return HttpResponse.error(new BadRequestError(error.message));
+      else return HttpResponse.error(new InternalServerError(error));
     }
   }
 }

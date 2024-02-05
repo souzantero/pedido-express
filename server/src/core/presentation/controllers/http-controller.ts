@@ -11,7 +11,7 @@ export interface HttpRequest {
 export class HttpResponse<T> {
   private constructor(
     public readonly status: HttpStatus,
-    public readonly body?: T,
+    public readonly body?: T | HttpError,
   ) {}
 
   static ok<T>(body?: T) {
@@ -24,6 +24,10 @@ export class HttpResponse<T> {
 
   static noContent<T>() {
     return new HttpResponse<T>(HttpStatus.NoContent);
+  }
+
+  static error<T>(error: HttpError) {
+    return new HttpResponse<T>(error.status, error);
   }
 }
 
@@ -43,9 +47,11 @@ export class HttpError extends Error {
 }
 
 export class InternalServerError extends HttpError {
-  constructor(stack?: string) {
+  constructor(error?: unknown) {
     super(HttpStatus.InternalServer, 'Internal server error');
-    this.stack = stack;
+    if (error instanceof Error) {
+      this.stack = error.stack;
+    }
   }
 }
 

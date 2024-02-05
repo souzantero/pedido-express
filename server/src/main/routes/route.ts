@@ -1,8 +1,5 @@
 import { Request, Response } from 'express';
-import {
-  HttpController,
-  HttpError,
-} from '../../core/presentation/controllers/http-controller';
+import { HttpController } from '../../core/presentation/controllers/http-controller';
 
 export const adaptRoute = <T>(httpController: HttpController<T>) => {
   return async (req: Request, res: Response) => {
@@ -12,14 +9,15 @@ export const adaptRoute = <T>(httpController: HttpController<T>) => {
       query: { ...req.query },
     };
 
-    try {
-      const httpResult = await httpController.handle(httpRequest);
-      return res.status(httpResult.status).json(httpResult.body);
-    } catch (error) {
-      const { status, message } = error as HttpError;
-      return res.status(status).json({
-        message,
-      });
+    const httpResponse = await httpController.handle(httpRequest);
+
+    if (httpResponse.status >= 200 && httpResponse.status <= 299) {
+      return res.status(httpResponse.status).json(httpResponse.body);
     }
+
+    const error = httpResponse.body as Error;
+    return res.status(httpResponse.status).json({
+      error: error?.message || 'Internal server error',
+    });
   };
 };

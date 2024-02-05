@@ -1,12 +1,12 @@
 import { Repository } from '@pedido-express/core';
 import { FindProducts } from '../../core/application';
 import {
-  CatchErrorHttpControllerDecorator,
+  LogHttpControllerDecorator,
   FindManyProductsHttpController,
 } from '../../core/presentation';
 
 export const makeFindManyProductsHttpController = (repository: Repository) => {
-  return new CatchErrorHttpControllerDecorator(
+  return new LogHttpControllerDecorator(
     new FindManyProductsHttpController(new FindProducts(repository.product)),
   );
 };

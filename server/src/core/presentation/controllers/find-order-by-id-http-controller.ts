@@ -12,7 +12,7 @@ export class FindOrderByIdHttpController implements HttpController<Order> {
     const { orderId } = request.params;
     const order = await this.findOrderRepository.findById(orderId);
     if (!order) {
-      throw new NotFoundError('Order not found');
+      return HttpResponse.error(new NotFoundError('Order not found'));
     }
     return HttpResponse.ok(order);
   }

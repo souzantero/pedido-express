@@ -4,6 +4,7 @@ import {
   BadRequestError,
   HttpRequest,
   HttpResponse,
+  InternalServerError,
   NotFoundError,
 } from './http-controller';
 import { ProductsNotFoundError } from '../../application/errors';
@@ -14,23 +15,33 @@ export class CreateOrderHttpController {
     const { customerName, isTakeAway, orderProducts } = request.body;
 
     if (!customerName) {
-      throw new BadRequestError('customerName is required');
+      return HttpResponse.error(
+        new BadRequestError('customerName is required'),
+      );
     }
 
     if (!orderProducts || orderProducts.length === 0) {
-      throw new BadRequestError('orderProducts is required');
+      return HttpResponse.error(
+        new BadRequestError('orderProducts is required'),
+      );
     }
 
     if (orderProducts.some((op: any) => !op.productId)) {
-      throw new BadRequestError('orderProducts.productId is required');
+      return HttpResponse.error(
+        new BadRequestError('orderProducts.productId is required'),
+      );
     }
 
     if (orderProducts.some((op: any) => !op.quantity)) {
-      throw new BadRequestError('orderProducts.quantity is required');
+      return HttpResponse.error(
+        new BadRequestError('orderProducts.quantity is required'),
+      );
     }
 
     if (orderProducts.some((op: any) => typeof op.quantity !== 'number')) {
-      throw new BadRequestError('orderProducts.quantity must be a number');
+      return HttpResponse.error(
+        new BadRequestError('orderProducts.quantity must be a number'),
+      );
     }
 
     const data: CreateOrderInput = {
@@ -43,9 +54,11 @@ export class CreateOrderHttpController {
       const order = await this.createOrder.create(data);
       return HttpResponse.created(order);
     } catch (error) {
-      if (error instanceof ProductsNotFoundError)
-        throw new NotFoundError(error.message);
-      throw error;
+      if (error instanceof ProductsNotFoundError) {
+        return HttpResponse.error(new NotFoundError(error.message));
+      }
+
+      return HttpResponse.error(new InternalServerError(error));
     }
   }
 }

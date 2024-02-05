@@ -1,7 +1,7 @@
 import { Repository } from '@pedido-express/core';
 import { ChangeOrderStatus, CreateOrder } from '../../core/application';
 import {
-  CatchErrorHttpControllerDecorator,
+  LogHttpControllerDecorator,
   CreateOrderHttpController,
   FindDayOrdersHttpController,
   FindOrderByIdHttpController,
@@ -17,19 +17,19 @@ export const makeCreateOrderHttpController = (repository: Repository) => {
     repository.product,
   );
 
-  return new CatchErrorHttpControllerDecorator(
+  return new LogHttpControllerDecorator(
     new CreateOrderHttpController(createOrder),
   );
 };
 
 export const makeFindDayOrdersHttpController = (repository: Repository) => {
-  return new CatchErrorHttpControllerDecorator(
+  return new LogHttpControllerDecorator(
     new FindDayOrdersHttpController(repository.order),
   );
 };
 
 export const makeFindOrderByIdHttpController = (repository: Repository) => {
-  return new CatchErrorHttpControllerDecorator(
+  return new LogHttpControllerDecorator(
     new FindOrderByIdHttpController(repository.order),
   );
 };
@@ -39,7 +39,7 @@ export const makeChangeOrderStatusHttpController = (repository: Repository) => {
     repository.order,
     repository.order,
   );
-  return new CatchErrorHttpControllerDecorator(
+  return new LogHttpControllerDecorator(
     new ChangeOrderStatusHttpController(changeOrderStatus),
   );
 };
