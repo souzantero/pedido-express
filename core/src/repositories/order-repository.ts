@@ -1,6 +1,6 @@
 import { Order } from "../entities";
 
-export interface OrderRepository extends CreateOrderRepository, FindOrdersRepository { }
+export interface OrderRepository extends CreateOrderRepository, FindOrdersRepository, FindOrderRepository, UpdateOrderRepository { }
 export interface CreateOrderRepository {
   create(order: Order): Promise<Order>;
 }
