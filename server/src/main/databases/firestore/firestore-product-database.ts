@@ -16,6 +16,7 @@ export class FirestoreProductDatabase implements ProductRepository {
         id: doc.id,
         createdAt: doc.createTime?.toDate(),
         updatedAt: doc.updateTime?.toDate(),
+        categoryId: doc.data().category.id,
       }).serialize(),
     );
   }
