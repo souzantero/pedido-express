@@ -16,7 +16,7 @@
   "author": "Antero, Felipe <souzantero@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "@pedido-express/core": "0.0.8",
+    "@pedido-express/core": "0.0.9",
     "express": "^4.18.2",
     "swagger-ui-express": "^4.6.3",
     "uuid": "^9.0.1"
