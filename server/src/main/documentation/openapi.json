@@ -77,6 +77,182 @@
         }
       }
     },
+    "/orders/{id}": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Busca um pedido pelo ID",
+        "operationId": "getOrderById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Identificador único do pedido"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pedido encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pedido não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{id}/status": {
+      "put": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Atualiza o status de um pedido",
+        "operationId": "updateOrderStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Identificador único do pedido"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "status"
+                ],
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "PENDING",
+                      "PREPARING",
+                      "READY",
+                      "DELIVERED",
+                      "CANCELED"
+                    ],
+                    "example": "READY",
+                    "description": "Novo status do pedido"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Status do pedido atualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pedido não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/of-the-day": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Lista todos os pedidos do dia",
+        "operationId": "getOrdersOfTheDay",
+        "responses": {
+          "200": {
+            "description": "Pedidos encontrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/products": {
       "get": {
         "tags": [
