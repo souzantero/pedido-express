@@ -1,11 +1,20 @@
-import { ChangeOrderStatus, Order, OrderStatus } from "@pedido-express/core";
-import { BadRequestError, HttpController, HttpRequest, HttpResponse, NotFoundError } from "./http-controller";
-import { OrderIsAlreadyCanceled, OrderIsAlreadyDelivered, OrderNotFound, OrderStatusIsTheSame } from "../../application/use-cases/change-order-status";
+import { ChangeOrderStatus, Order, OrderStatus } from '@pedido-express/core';
+import {
+  BadRequestError,
+  HttpController,
+  HttpRequest,
+  HttpResponse,
+  NotFoundError,
+} from './http-controller';
+import {
+  OrderIsAlreadyCanceled,
+  OrderIsAlreadyDelivered,
+  OrderNotFound,
+  OrderStatusIsTheSame,
+} from '../../application/use-cases/change-order-status';
 
 export class ChangeOrderStatusHttpController implements HttpController<Order> {
-  constructor(
-    private readonly changeOrderStatus: ChangeOrderStatus
-  ) { }
+  constructor(private readonly changeOrderStatus: ChangeOrderStatus) {}
 
   async handle(request: HttpRequest): Promise<HttpResponse<Order>> {
     const { orderId } = request.params;
@@ -31,7 +40,7 @@ export class ChangeOrderStatusHttpController implements HttpController<Order> {
         throw new BadRequestError(error.message);
       else if (error instanceof OrderStatusIsTheSame)
         throw new BadRequestError(error.message);
-      else throw error
+      else throw error;
     }
   }
 }

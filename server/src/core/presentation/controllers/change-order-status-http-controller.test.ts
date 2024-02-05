@@ -1,27 +1,32 @@
-import { describe, it } from "node:test";
-import assert from "node:assert";
-import { ChangeOrderStatusHttpController } from "./change-order-status-http-controller";
-import { ChangeOrderStatus, Order, OrderStatus } from "@pedido-express/core";
-import { BadRequestError, NotFoundError } from "./http-controller";
-import { OrderIsAlreadyCanceled, OrderIsAlreadyDelivered, OrderNotFound, OrderStatusIsTheSame } from "../../application/use-cases/change-order-status";
+import { describe, it } from 'node:test';
+import assert from 'node:assert';
+import { ChangeOrderStatusHttpController } from './change-order-status-http-controller';
+import { ChangeOrderStatus, Order, OrderStatus } from '@pedido-express/core';
+import { BadRequestError, NotFoundError } from './http-controller';
+import {
+  OrderIsAlreadyCanceled,
+  OrderIsAlreadyDelivered,
+  OrderNotFound,
+  OrderStatusIsTheSame,
+} from '../../application/use-cases/change-order-status';
 
-describe("ChangeOrderStatusHttpController", () => {
+describe('ChangeOrderStatusHttpController', () => {
   it('should return 200 status', async () => {
     // Arrange
     const changeOrderStatus: ChangeOrderStatus = {
       async changeStatus() {
         return {} as Order;
-      }
-    }
+      },
+    };
 
     // Act
     const controller = new ChangeOrderStatusHttpController(changeOrderStatus);
     const response = await controller.handle({
       body: {
-        status: OrderStatus.Preparing
+        status: OrderStatus.Preparing,
       },
       params: {},
-      query: {}
+      query: {},
     });
 
     // Assert
@@ -33,18 +38,18 @@ describe("ChangeOrderStatusHttpController", () => {
     const order = { id: Date.now().toString() } as Order;
     const changeOrderStatus: ChangeOrderStatus = {
       async changeStatus() {
-        return order
-      }
-    }
+        return order;
+      },
+    };
 
     // Act
     const controller = new ChangeOrderStatusHttpController(changeOrderStatus);
     const response = await controller.handle({
       body: {
-        status: OrderStatus.Preparing
+        status: OrderStatus.Preparing,
       },
       params: {},
-      query: {}
+      query: {},
     });
 
     // Assert
@@ -62,25 +67,25 @@ describe("ChangeOrderStatusHttpController", () => {
       async changeStatus(orderId: string, status: OrderStatus) {
         return {
           id: orderId,
-          status
+          status,
         } as Order;
-      }
-    }
+      },
+    };
 
     // Act
     const controller = new ChangeOrderStatusHttpController(changeOrderStatus);
     const response = await controller.handle({
       body,
       params,
-      query
+      query,
     });
 
     // Assert
     assert.deepEqual(response.body, {
       id: orderId,
-      status
+      status,
     });
-  })
+  });
 
   it('should throw bad request if status is not provided', () => {
     // Arrange
@@ -92,17 +97,17 @@ describe("ChangeOrderStatusHttpController", () => {
       async changeStatus(orderId: string, status: OrderStatus) {
         return {
           id: orderId,
-          status
+          status,
         } as Order;
-      }
-    }
+      },
+    };
 
     // Act
     const controller = new ChangeOrderStatusHttpController(changeOrderStatus);
     const promise = controller.handle({
       body,
       params,
-      query
+      query,
     });
 
     // Assert
@@ -119,17 +124,17 @@ describe("ChangeOrderStatusHttpController", () => {
       async changeStatus(orderId: string, status: OrderStatus) {
         return {
           id: orderId,
-          status
+          status,
         } as Order;
-      }
-    }
+      },
+    };
 
     // Act
     const controller = new ChangeOrderStatusHttpController(changeOrderStatus);
     const promise = controller.handle({
       body,
       params,
-      query
+      query,
     });
 
     // Assert
@@ -145,7 +150,7 @@ describe("ChangeOrderStatusHttpController", () => {
     const changeOrderStatus: ChangeOrderStatus = {
       async changeStatus() {
         throw new OrderNotFound();
-      }
+      },
     } as ChangeOrderStatus;
 
     // Act
@@ -153,7 +158,7 @@ describe("ChangeOrderStatusHttpController", () => {
     const promise = controller.handle({
       body,
       params,
-      query
+      query,
     });
 
     // Assert
@@ -169,7 +174,7 @@ describe("ChangeOrderStatusHttpController", () => {
     const changeOrderStatus: ChangeOrderStatus = {
       async changeStatus() {
         throw new OrderIsAlreadyDelivered();
-      }
+      },
     } as ChangeOrderStatus;
 
     // Act
@@ -177,11 +182,14 @@ describe("ChangeOrderStatusHttpController", () => {
     const promise = controller.handle({
       body,
       params,
-      query
+      query,
     });
 
     // Assert
-    return assert.rejects(promise, new BadRequestError('Order is already delivered'));
+    return assert.rejects(
+      promise,
+      new BadRequestError('Order is already delivered'),
+    );
   });
 
   it('should throw bad request if order is already canceled', () => {
@@ -193,7 +201,7 @@ describe("ChangeOrderStatusHttpController", () => {
     const changeOrderStatus: ChangeOrderStatus = {
       async changeStatus() {
         throw new OrderIsAlreadyCanceled();
-      }
+      },
     } as ChangeOrderStatus;
 
     // Act
@@ -201,11 +209,14 @@ describe("ChangeOrderStatusHttpController", () => {
     const promise = controller.handle({
       body,
       params,
-      query
+      query,
     });
 
     // Assert
-    return assert.rejects(promise, new BadRequestError('Order is already canceled'));
+    return assert.rejects(
+      promise,
+      new BadRequestError('Order is already canceled'),
+    );
   });
 
   it('should throw bad request if order status is the same', () => {
@@ -217,7 +228,7 @@ describe("ChangeOrderStatusHttpController", () => {
     const changeOrderStatus: ChangeOrderStatus = {
       async changeStatus() {
         throw new OrderStatusIsTheSame();
-      }
+      },
     } as ChangeOrderStatus;
 
     // Act
@@ -225,10 +236,13 @@ describe("ChangeOrderStatusHttpController", () => {
     const promise = controller.handle({
       body,
       params,
-      query
+      query,
     });
 
     // Assert
-    return assert.rejects(promise, new BadRequestError('Order status is the same'));
-  })
+    return assert.rejects(
+      promise,
+      new BadRequestError('Order status is the same'),
+    );
+  });
 });
