@@ -1,3 +1,5 @@
+import { initializeApp } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
 import {
   OrderRepository,
   ProductCategoryRepository,
@@ -13,9 +15,16 @@ export class FirestoreDatabase implements Repository {
   product: ProductRepository;
   productCategory: ProductCategoryRepository;
 
-  constructor(private readonly firestore: FirebaseFirestore.Firestore) {
+  private constructor(private readonly firestore: FirebaseFirestore.Firestore) {
     this.order = new FirestoreOrderDatabase(firestore);
     this.product = new FirestoreProductDatabase(firestore);
     this.productCategory = new FirestoreProductCategoryDatabase(firestore);
+  }
+
+  static create(): FirestoreDatabase {
+    const firebase = initializeApp();
+    const firestore = getFirestore(firebase);
+    firestore.settings({ ignoreUndefinedProperties: true });
+    return new FirestoreDatabase(firestore);
   }
 }
