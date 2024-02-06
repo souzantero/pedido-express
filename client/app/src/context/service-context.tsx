@@ -7,8 +7,9 @@ import {
   InMemoryProductService,
   InMemoryService,
   SDKService,
-  Service
+  Service,
 } from "../service";
+import { env } from "../config/env";
 
 const productCategories: ProductCategory[] = [
   new ProductCategory("1", new Date(), new Date(), "Salgados"),
@@ -65,10 +66,7 @@ const products: Product[] = [
 //   new InMemoryOrderService([], products)
 // );
 
-const service = new SDKService (
-  new Client("http://192.168.100.4:3000/api")
-);
-
+const service = new SDKService(new Client(env.apiUrl));
 const ServiceContext = createContext(service);
 
 export const useService = () => useContext(ServiceContext);
