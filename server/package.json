@@ -7,15 +7,10 @@
     "lint": "eslint '*/**/*.ts'",
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig-build.json",
-    "start": "NODE_ENV=production node dist/main/server.js",
-    "start:dev": "NODE_ENV=development nodemon -L --watch ./src --exec ts-node ./src/main/server.ts",
-    "start:debug": "NODE_ENV=development nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
-    "test:e2e": "NODE_ENV=test ts-node test/e2e/*.test.ts",
-    "firebase:serve": "npm run build && firebase emulators:start --only functions",
-    "firebase:shell": "npm run build && firebase functions:shell",
-    "firebase:start": "npm run build && npm run shell",
-    "firebase:deploy": "firebase deploy --only functions",
-    "firebase:logs": "firebase functions:log"
+    "start": "NODE_ENV=production node dist/index.js",
+    "start:dev": "NODE_ENV=development nodemon -L --watch ./src --exec ts-node ./src/index.ts",
+    "start:debug": "NODE_ENV=development nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/index.js",
+    "test:e2e": "NODE_ENV=test ts-node test/e2e/*.test.ts"
   },
   "engines": {
     "node": "20"
@@ -28,7 +23,6 @@
     "@pedido-express/core": "0.0.9",
     "express": "^4.18.2",
     "firebase-admin": "^12.0.0",
-    "firebase-functions": "^4.6.0",
     "swagger-ui-express": "^4.6.3",
     "uuid": "^9.0.1"
   },
