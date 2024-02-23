@@ -8,12 +8,14 @@ import {
 } from '@pedido-express/core';
 import { Identifier } from '../protocols';
 import { ProductsNotFoundError } from '../errors';
+import { OrderCreatedEvent } from '../events/order-created-event';
 
 export class CreateOrder {
   constructor(
     private readonly identifier: Identifier,
     private readonly orderRepository: OrderRepository,
     private readonly productRepository: ProductRepository,
+    private readonly orderCreatedEvent: OrderCreatedEvent,
   ) {}
 
   async create(input: CreateOrderInput): Promise<Order> {
@@ -59,7 +61,9 @@ export class CreateOrder {
       input.customerName,
     );
 
-    return this.orderRepository.create(order);
+    const createdOrder = await this.orderRepository.create(order);
+    await this.orderCreatedEvent.orderCreated(createdOrder);
+    return createdOrder;
   }
 }
 
