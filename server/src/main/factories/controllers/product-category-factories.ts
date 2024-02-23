@@ -1,9 +1,9 @@
 import { Repository } from '@pedido-express/core';
-import { FindProductCategories } from '../../core/application';
+import { FindProductCategories } from '../../../core/application';
 import {
   LogHttpControllerDecorator,
   FindManyProductCategoriesHttpController,
-} from '../../core/presentation';
+} from '../../../core/presentation';
 
 export const makeFindManyProductCategoriesHttpController = (
   repository: Repository,

@@ -1,8 +1,10 @@
 export type EnvironmentName = 'development' | 'production';
+export type Datasource = 'in-memory' | 'prisma' | 'firestore';
 
 export interface Environment {
   readonly name: EnvironmentName;
   readonly port: number;
+  readonly datasource: Datasource;
 }
 
 if (process.env.NODE_ENV) {
@@ -24,4 +26,5 @@ if (process.env.PORT) {
 export const environment: Environment = {
   name: (process.env.NODE_ENV as EnvironmentName) || 'development',
   port: Number(process.env.PORT) || 3000,
+  datasource: (process.env.DATASOURCE as Datasource) || 'in-memory',
 };
